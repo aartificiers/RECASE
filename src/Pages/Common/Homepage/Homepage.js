@@ -11,6 +11,7 @@ import { BsQuestionDiamond } from 'react-icons/bs';
 import { FaqOthers, faqEnglish, faqHindi, gridResultData, jodiChartList, netWeeklyData, pannelChartList, weeknumtableData } from '../../../Constants/dummy';
 import { dateFormat } from '../../../Utils/DateFormat';
 import { Footer } from '../../../Components/Footer/Footer';
+import Navbar from '../../../Components/Navbar/Navbar';
 
 
 
@@ -18,6 +19,7 @@ const Homepage = () => {
    return (
       <div className="main dark">
          <div className="mainWrap">
+            <Navbar/>
             <div className={'homepage'}>
                <div className={'homepageWrap'}>
                   {/* Header */}

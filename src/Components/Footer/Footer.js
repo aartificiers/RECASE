@@ -13,10 +13,10 @@ export const Footer = () => {
             </div>
             <div className="footer-right">
                 <div className="footerLinks">
-                    <Link to={"/home"}>Home</Link>|
-                    <Link to={"/home/about"}>About us</Link>|
-                    <Link to={"/home/contact"}>Contact us </Link>|
-                    <Link to={"/home/privacy"}>Privacy & Policy </Link>|
+                    <Link to={"/"}>Home</Link>|
+                    <Link to={"/about"}>About us</Link>|
+                    <Link to={"/contact"}>Contact us </Link>|
+                    <Link to={"/privacy"}>Privacy & Policy </Link>|
                     <Link to={"#"}>Term & Condition</Link>|
                     <Link to={"#"}>Sitemap</Link>
                 </div>

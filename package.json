@@ -29,7 +29,7 @@
     "react-redux": "^8.1.2",
     "react-responsive-masonry": "^2.1.7",
     "react-router-dom": "^6.8.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "sass": "^1.58.3",
     "suneditor": "^2.45.1",
     "suneditor-react": "^3.6.1",

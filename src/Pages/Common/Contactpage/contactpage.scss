@@ -1,0 +1,22 @@
+.contactSection {
+    width: 100%;
+    margin: 20px 0;
+    padding: 25px;
+
+    .contactWrap {
+        width: 100%;
+
+        .contHeading {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            h1 {
+                font-size: 1.7em;
+                color: var(--neon-green);
+            }
+           
+        }
+    }
+}
