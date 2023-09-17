@@ -1,0 +1,175 @@
+.TableListSwap{
+    width: 100%;
+    .TableListSwapWrap{
+        width: 100%;
+
+        .liveList{
+            width: 100%;
+            .liveListWrap{
+                width: 100%;
+                ul{
+                    width: 100%;
+                    list-style: none;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    li{
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        gap: 7px;
+                        border: 1px solid rgba(128, 128, 128, 0.488);
+                        padding: 10px;
+                        border-radius: 8px;
+                        .liveTop{   
+                            color: var(--neon-green);                       
+
+                        }
+                        .liveMid{
+                           h1{
+                            font-size: 1.4em;
+                            text-align: center;
+                            font-weight: 800;
+                            color: var(--neon-blue);
+                            text-transform: uppercase;
+                            // text-emphasis:  "x" #fff;
+                            font-style: italic;
+                           }
+                           h3{
+                            font-size: 1em;
+                            text-align: center;
+                            font-weight: 500;
+                            font-style: italic;
+
+                           }
+                        }
+                        .liveBottom{
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            flex-direction: row-reverse;
+                            width: 100%;
+                            .list-btns{
+                                button{
+                                    padding: 6px;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background:transparent;                                   
+                                    outline: none;
+                                    border-radius: 6px;
+                                    font-size: .8em;
+                                    color: white;
+                                    border: none;
+                                    
+                                    
+                                    &:hover{
+                                        background: transparent;
+                                        border: 1px solid var(--neon-blue);
+                                        color: var(--neon-blue);
+                                    }
+
+                                }
+                                
+
+                            }
+                            .time{
+                                font-size: .7em;
+                                color: rgb(177, 177, 177);
+
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
+
+        .liveTable {
+            width: 100%;
+        
+            .liveTableWrap {
+              width: 100%;
+              overflow-x: auto;
+        
+              table {
+                width: 100%;
+                border-collapse: collapse;
+        
+                thead {
+                  width: 100%;
+                  background-color: var(--primary-color);
+                  color: white;
+        
+                  tr {
+                    width: 100%;
+        
+                    th {
+                      font-size: 30px;
+                      font-weight: 600;
+                      text-align: left;
+                      padding: 4px 10px;
+                    }
+                  }
+                }
+        
+                tbody {
+                  width: 100%;
+        
+                  tr {
+                    width: 100%;
+                    margin: 20px 0;
+                    border-bottom: 1px solid gray;
+        
+        
+        
+                    td {
+                      font-size: 25px;
+                      padding: 15px 10px;
+                      line-height: 2em;
+                      text-transform: uppercase;
+                      color: var(--neon-blue);
+                      font-weight: 600;
+        
+                      p {
+                        color: white;
+                        font-weight: 300;
+                      }
+        
+                      button {
+                        padding: 10px 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: none;
+                        outline: none;
+                        border-radius: 8px;
+                        background: white;
+                        color: var(--primary-color);
+                        font-size: 20px;
+                        font-weight: 700;
+                        cursor: pointer;
+                        transition: 0.5s ease;
+                        border: 2px solid white;
+        
+                        &:hover {
+                          background: var(--primary-color);
+                          color: var(--neon-color);
+                          transition: 0.5s ease;
+                          border: 2px solid var(--neon-color);
+                        }
+                      }
+                    }
+        
+                  }
+                }
+              }
+        
+        
+            }
+          }
+    }
+}

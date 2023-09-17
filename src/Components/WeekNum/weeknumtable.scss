@@ -1,0 +1,151 @@
+.WeekNumTable {
+    width: 100%;
+    // padding: 25px;   
+    margin: 20px 0;
+    .WeekNumTableWrap {
+        width: 100%;
+        // padding: 10px 0;
+
+        .heading {
+            text-align: center;
+
+            h3 {
+                font-size: 2.5em;
+                background: var(--primary-color);
+                padding: 10px 0;
+                text-transform: uppercase;
+            }
+        }
+
+        // table design
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+
+
+            tbody {
+                width: 100%;
+
+                tr {
+                    border: 2px solid var(--neon-musturd);
+
+                    &:last-child {
+                        border-bottom-left-radius: 8px;
+                    }
+
+                    td {
+                        border-left: 2px solid var(--neon-musturd);
+                        border-right: 2px solid var(--neon-musturd);
+
+                        &:nth-child(1) {
+                            font-size: 1.5em;
+                            text-align: center;
+                            padding: 10px 0;
+                            font-weight: 600;
+                            text-transform: uppercase;
+
+                        }
+
+                        .weekNumCol {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+
+
+                            .left {
+                                width: 50%;
+                                height: 100%;
+                                font-size: 2em;
+                                text-align: center;
+                                padding: 10px 0;
+                                font-weight: 600;
+                                color: var(--neon-blue);
+
+
+
+
+                            }
+
+                            .right {
+                                width: 50%;
+                                height: 100%;
+                                font-size: 1.2em;
+                                text-align: center;
+                                text-align: center;
+                                border-left: 2px solid var(--neon-musturd);
+
+                                .rightTop {
+                                    border-bottom: 2px solid var(--neon-musturd);
+                                    padding: 8px 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                }
+
+                                .rightBottom {
+                                    padding: 8px 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+
+                                }
+
+
+
+
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+
+
+@media screen and (max-width:991px) {
+    .WeekNumTable{
+        .WeekNumTableWrap{
+            .heading{
+                h3{
+                    font-size: 1.3em;
+                }
+            }
+            table{
+                tbody{
+                    tr{
+                        td{
+                            &:nth-child(1){
+                                font-size: 1em;
+
+                            }
+                            .weekNumCol{
+                                .left{
+                                    font-size: 1em;
+                                }
+                                .right{
+                                    font-size: 0.8em;
+                                    .rightTop{
+                                        padding: 4px;
+
+                                    }
+                                    .rightBottom{
+                                        padding: 4px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,24 @@
+.netweekly {
+    width: 100%;
+    padding: 25px;   
+    margin: 20px 0;
+
+    .netweeklyWrap {
+        width: 100%;
+        // height: 100px;
+
+
+        h1 {
+            color: white;
+        }
+
+        .content {
+            p {
+                text-align: center;
+                padding: 5px 0;
+                font-size: 1em;
+                color: var(--neon-green);
+            }
+        }
+    }
+}

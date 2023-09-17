@@ -1,0 +1,31 @@
+.gridReultItem{
+    min-height: 200px;
+    h1{
+        background: var(--primary-color);
+        text-align: center;
+        color: var(--neon-blue);
+        padding:10px 0 ;
+    }
+    .content{
+        text-align: center;
+        p{
+            font-size: 1.5em;
+            padding: 5px 0;
+        }
+    }
+}
+
+@media screen and (max-width:991px) {
+    .gridReultItem{
+        min-height:100px;
+        h1{
+            font-size: 1em;
+        }
+        .content{
+            p{
+                font-size: 0.6em;
+            }
+        }
+    }
+    
+}

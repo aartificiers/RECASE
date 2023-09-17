@@ -1,0 +1,103 @@
+.ChartList {
+    width: 100%;
+    padding: 25px;
+    margin: 20px 0;
+
+    .ChartListWrap {
+        width: 100%;
+
+        .listHeading {
+            text-align: center;
+            font-size: 2em;
+            font-weight: 600;
+            background: var(--primary-color);
+
+        }
+
+        .contentList {
+            width: 100%;
+
+            .contentWrap {
+                list-style: none;
+                padding: 10px 0;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+
+                li {
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(255, 255, 255, 0.066);
+
+                    &:nth-child(even) {
+                        background: rgba(255, 255, 255, 0.138);
+                    }
+
+                    a {
+                        color: var(--neon-blue);
+                        text-decoration: none;
+                        font-size: 1.7em;
+                        width: 100%;
+                        padding: 5px 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+                        
+
+                        &::before{
+                            content: "";
+                            width: 0px;
+                            height: 2px;
+                            background: var(--neon-blue);
+                            border-radius: 10px;
+                            position: absolute;
+                            bottom: 0;
+                            transform-origin: center;
+                            transition: 0.5s ease;
+
+
+                        }
+                        &:hover{
+
+                            &::before{
+                                width: 100%;
+                                transition: 0.5s ease;
+                            }
+
+                        
+                        }
+                    }
+                   
+                }
+
+            }
+
+        }
+    }
+}
+
+
+@media screen and (max-width:991px) {
+    .ChartList{
+        padding: 5px;
+        .ChartListWrap{
+            .listHeading{
+                font-size: 1.3em;
+            }
+            .contentList{
+                .contentWrap{
+                    li{
+                        a{
+                            font-size: 1em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
