@@ -17,7 +17,7 @@ export const Footer = () => {
                     <Link to={"/about"}>About us</Link>|
                     <Link to={"/contact"}>Contact us </Link>|
                     <Link to={"/privacy"}>Privacy & Policy </Link>|
-                    <Link to={"#"}>Term & Condition</Link>|
+                    <Link to={"/terms"}>Term & Condition</Link>|
                     <Link to={"#"}>Sitemap</Link>
                 </div>
             </div>

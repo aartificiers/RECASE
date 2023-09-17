@@ -7,6 +7,9 @@ import Homepage from './Pages/Common/Homepage/Homepage'
 import Aboutpage from './Pages/Common/Aboutpage/Aboutpage'
 import Contactpage from './Pages/Common/Contactpage/Contactpage'
 import Privacypage from './Pages/Common/Privacypage/Privacypage'
+import Termscondition from './Pages/Common/Termscondition/Termscondition'
+import Login from './Pages/Admin/Login/Login'
+import Layout from './Pages/Admin/Dashboard/Layout/Layout'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,6 +20,9 @@ function App() {
       <Route path={'/about'} element={<Aboutpage/>} />
       <Route path={'/contact'} element={<Contactpage/>} />
       <Route path={'/privacy'} element={<Privacypage/>} />
+      <Route path={'/terms'} element={<Termscondition/>} />
+      <Route path={'/admin/login'} element={<Login/>} />
+      <Route path={'/admin/dashboard/:id'} element={<Layout/>} />
     </Routes>
   )
 }
