@@ -41,7 +41,6 @@ function App() {
   useEffect(() => {
     const getCookie = async (navi) => {
       setLoading(true);
-      console.log("yeh");
       const response = await API.getCookie();
       if (response.isSuccess) {
         setLoading(false);
@@ -68,7 +67,7 @@ function App() {
   useEffect(() => {
     const getCookie = async () => {
       setLoading(true);
-      console.log("Remote");
+      
       const response = await API.getCookie();
       if (response.isSuccess) {
         setLoading(false);
