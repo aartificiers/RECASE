@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import dynamic from "next/dynamic";
 import 'suneditor/dist/css/suneditor.min.css';
 import SunEditor from 'suneditor-react/dist/components/SunEditor';
 // import SunEditor from 'suneditor-react/dist/components/SunEditor';
@@ -22,7 +21,7 @@ const QuillEditor = ({ value, onChange }) => {
     ],
   };
 
-  return <SunEditor onChange={(cont)=>{console.log(cont);}} setOptions={editorOptions} />
+  return <SunEditor defaultValue={`<p>${value}</p>`} onChange={(cont)=>{console.log(cont);}} setOptions={editorOptions} />
 
 
 

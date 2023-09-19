@@ -33,4 +33,8 @@ export const SERVICE_URLS = {
     subAdminLog: { url: "/subuser/signin", method: "POST" },
     getCookie:{url:"/getcookie",method:"GET"},
     userLogOut:{url:"/subuser/logout",method:"GET"},
+   
+    getluckyNum:{url:"/lucky/get",method:'GET',params:true},
+    updateluckynum: { url: "/lucky/update", method: "POST" },
 }
+

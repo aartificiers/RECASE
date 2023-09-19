@@ -3,6 +3,7 @@ import './games.scss';
 import DashHeader from '../../../../Components/AdminComponents/HeaderCompponent/DashHeader';
 import { BsPlusSquare } from 'react-icons/bs';
 import Modal from '../../../../Components/AdminComponents/modal/Modal';
+import { DataGrid } from "@mui/x-data-grid";
 
 const Games = () => {
     const [openModal, setOpenModal] = useState(false);

@@ -1435,3 +1435,27 @@ export const subUserData = [
     },
 
 ]
+
+export const addsData = [
+    {
+        contents: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A sint non nulla modi dolores enim corrupti dicta at eaque, tempore quisquam fugiat porro quasi doloremque harum praesentium repudiandae, dolor sequi.',
+    },
+    {
+        contents: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A sint non nulla modi dolores enim corrupti dicta at eaque, tempore quisquam fugiat porro quasi doloremque harum praesentium repudiandae, dolor sequi.',
+    },
+    {
+        contents: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A sint non nulla modi dolores enim corrupti dicta at eaque, tempore quisquam fugiat porro quasi doloremque harum praesentium repudiandae, dolor sequi.',
+    },
+    {
+        contents: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A sint non nulla modi dolores enim corrupti dicta at eaque, tempore quisquam fugiat porro quasi doloremque harum praesentium repudiandae, dolor sequi.',
+    },
+    {
+        contents: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A sint non nulla modi dolores enim corrupti dicta at eaque, tempore quisquam fugiat porro quasi doloremque harum praesentium repudiandae, dolor sequi.',
+    },
+    {
+        contents: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A sint non nulla modi dolores enim corrupti dicta at eaque, tempore quisquam fugiat porro quasi doloremque harum praesentium repudiandae, dolor sequi.',
+    },
+    {
+        contents: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A sint non nulla modi dolores enim corrupti dicta at eaque, tempore quisquam fugiat porro quasi doloremque harum praesentium repudiandae, dolor sequi.',
+    }
+]
