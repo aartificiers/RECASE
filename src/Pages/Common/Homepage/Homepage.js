@@ -12,12 +12,17 @@ import { FaqOthers, faqEnglish, faqHindi, gridResultData, jodiChartList, netWeek
 import { dateFormat } from '../../../Utils/DateFormat';
 import { Footer } from '../../../Components/Footer/Footer';
 import Navbar from '../../../Components/Navbar/Navbar';
+import { Helmet } from 'react-helmet';
 
 
 
 const Homepage = () => {
    return (
       <div className="main dark">
+         <Helmet>
+            <title>Homepage - SRboss.com</title>
+         </Helmet>
+         
          <div className="mainWrap">
             <Navbar/>
             <div className={'homepage'}>

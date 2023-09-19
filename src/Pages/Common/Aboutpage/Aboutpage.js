@@ -3,10 +3,14 @@ import { Footer } from '../../../Components/Footer/Footer';
 import { LiaHandPointUpSolid } from 'react-icons/lia';
 import Navbar from '../../../Components/Navbar/Navbar';
 import './aboutpage.scss';
+import { Helmet } from 'react-helmet';
 
 const Aboutpage = () => {
     return (
         <div className="main dark">
+            <Helmet>
+                <title>Aboutpage - SRboss.com</title>
+            </Helmet>
             <div className="mainWrap">
                 <Navbar/>
                 <div className={'about' + " glass brdr-rad "}>

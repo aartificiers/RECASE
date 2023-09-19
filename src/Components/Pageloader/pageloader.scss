@@ -1,0 +1,74 @@
+.pageloader {
+    width: 100vw;
+    height: 100vh;
+    background: rgb(220, 255, 212);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 101;
+
+    .pageloader-wrap {
+
+        /* HTML: <div class="loader"></div> */
+        .page-loader-anim,
+        .page-loader-anim:before,
+        .page-loader-anim:after {
+            width: 100px;
+            aspect-ratio: 1;
+            box-shadow: 0 0 0 3px inset #27c84a;
+            position: relative;
+            animation: 1.5s infinite 0.5s;
+            animation-name: l7-5, l7-4;
+        }
+
+        .page-loader-anim:before,
+        .page-loader-anim:after {
+            content: "";
+            position: absolute;
+            left: calc(100% + 5px);
+            animation-delay: 1s, 0s;
+        }
+
+        .page-loader-anim:after {
+            left: -105px;
+            animation-delay: 0s, 1s;
+        }
+
+        
+    }
+}
+
+@keyframes l7-5 {
+
+    0%,
+    55%,
+    100% {
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 0
+    }
+
+    20%,
+    30% {
+        border-top-left-radius: 50%;
+        border-bottom-right-radius: 50%
+    }
+}
+
+@keyframes l7-4 {
+
+    0%,
+    55%,
+    100% {
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0
+    }
+
+    20%,
+    30% {
+        border-bottom-left-radius: 50%;
+        border-top-right-radius: 50%
+    }
+}

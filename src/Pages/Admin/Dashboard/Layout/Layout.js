@@ -5,13 +5,29 @@ import { BiSolidDashboard } from 'react-icons/bi';
 import { IoGameController } from 'react-icons/io5';
 import { VscLayoutPanelCenter } from 'react-icons/vsc';
 import { IoMdExit } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { BsFillPauseFill } from 'react-icons/bs';
+import { logoutUser } from '../../../../Utils/commonutil';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../../../../Store/Slices/userSlice';
+import { toast } from 'react-toastify';
 
 
 const Layout = () => {
+  const userInfo=useSelector(state=>state.user);
     let [sideBarToggle, setSideBarToggle] = useState(false);
+    const navigate=useNavigate();
+    const dispatch= useDispatch();
+
+    const logout=()=>{
+      if(logoutUser()){
+        dispatch(addUser({isAuthenticated:false,user:{}}));
+        navigate("/admin/login");
+      }else{
+        toast.error("Logout Failed");
+      }
+    }
   return (
     <div className="dashboard">
       <div className="dashWrap">
@@ -39,7 +55,7 @@ const Layout = () => {
             <ul className="listItems">
               <li>
                 <div title="SR Boss" className='logo'><Link to={"/home"}>SR Dash</Link></div>
-                <div className="user"><Link to={"#"}><div className='avatar'></div>Username</Link></div>
+                <div className="user"><Link to={"#"}><div className='avatar'></div>{userInfo?.user.name?.split(" ")[0]}</Link></div>
                 <div className="menu-list"><Link to={"/"}><BiSolidDashboard />Dashboard</Link></div>
                 <div className="menu-list"><Link to={"/admin/dashboard/subuser"}><FaUser />Sub User</Link></div>
                 <div className="menu-list"><Link to={"/admin/dashboard/games"}><IoGameController />Games</Link></div>
@@ -47,7 +63,7 @@ const Layout = () => {
                 <div className="menu-list"><Link to={"/admin/dashboard/panel"}><VscLayoutPanelCenter />Panel</Link></div>
               </li>
               <li>
-                <div className="menu-list"><button className='logBtn'><IoMdExit />Logout</button></div>
+                <div className="menu-list"><button onClick={logout} className='logBtn'><IoMdExit />Logout</button></div>
               </li>
             </ul>
           )}

@@ -1,0 +1,133 @@
+.custom-alert {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.474);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .alrt-wrap {
+        width: 40%;
+        min-height: 200px;
+        background: transparent;
+        border-radius: 8px;
+        padding: 25px;
+        overflow: hidden;
+
+        .alrt-head {
+            width: 100%;
+            height: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h3{
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            button{
+                border: none;
+                outline: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.2em;
+                background: transparent;
+                padding: 5px;
+                &:hover{
+                    background: rgba(102, 102, 102, 0.345);
+
+                }
+
+            }
+        }
+        .alrt-body{
+            margin: 15px 0;
+            p{
+                color: white;
+                font-size: 1.3em;
+                font-weight: 400;
+            }
+        }
+        .alrt-foot{
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 15px;
+            button{
+                outline:none;
+                background: transparent;
+                padding: 8px;
+                border-radius: 4px;
+                font-size: 1.2em;
+                font-weight: 500;
+
+                &:hover{
+                    background: rgba(255, 255, 255, 0.166);
+                }
+            }
+        }
+
+        &.success {
+            border: 3px solid var(--neon-green);
+
+            .alrt-head {
+                background: transparent;
+                color: var(--neon-green);
+                button{
+                    color: inherit;
+                }
+            }
+            .alrt-foot{
+                button{
+                    color: var(--neon-green);
+                    border: 2px solid var(--neon-green);
+                }
+            }
+        }
+        &.error {
+            border: 3px solid rgb(255, 105, 105);
+
+            .alrt-head {
+                background: transparent;
+                color: rgb(255, 105, 105);
+                button{
+                    color: inherit;
+                }
+            }
+            .alrt-foot{
+                button{
+                    color: rgb(255, 105, 105);
+                    border: 2px solid rgb(255, 105, 105);
+                }
+            }
+        }
+        &.warn {
+            border: 3px solid var(--neon-musturd);
+
+            .alrt-head {
+                background: transparent;
+                color: var(--neon-musturd);
+                button{
+                    color: inherit;
+                }
+            }
+            .alrt-foot{
+                button{
+                    color: var(--neon-musturd);
+                    border: 2px solid var(--neon-musturd);
+                }
+            }
+        }
+
+        
+
+    }
+
+}

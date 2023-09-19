@@ -1,5 +1,7 @@
 // import jwtDecode from 'jwt-decode';
 
+import { API } from "../Services/Api";
+
 // export const checkTokenExpiration = () => {
 
 //   const token = sessionStorage.getItem('accessToken');
@@ -22,6 +24,25 @@
 //   }
 
 //   }
+
+export const getCookie=(cookieName)=> {
+  // Split the cookie string into an array of key-value pairs
+  const cookies = document.cookie.split(';');
+
+  // Iterate through the cookies
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim(); // Trim any leading/trailing spaces
+
+    // Check if this cookie has the name we're looking for
+    if (cookie.startsWith(cookieName + '=')) {
+      // Extract and return the cookie value (the authToken)
+      return cookie.substring(cookieName.length + 1);
+    }
+  }
+
+  // If the cookie is not found, return null or an appropriate default value
+  return null;
+}
 
   export const checkAdminsession = () => {
 
@@ -50,9 +71,17 @@
   }
 
 
-  export const logoutUser=()=>{
-    sessionStorage.clear();
-    localStorage.clear();
+  export const logoutUser=async()=>{
+
+    const response=await API.userLogOut();
+    console.log(response);
+    if(response.isSuccess){
+      localStorage.clear();
+      return true;
+    }else{
+      return false;
+    }
+    
   }
 
 

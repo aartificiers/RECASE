@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './login.scss';
+import { API } from '../../../Services/Api';
+import { getCookie } from '../../../Utils/commonutil';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addUser } from '../../../Store/Slices/userSlice';
+import Loader from '../../../Components/Loader/Loader';
 
+const initialLoginData = { username: "", password: "" };
 const Login = () => {
-    const [formData, setFormData] = useState({ username: "", password: "" });
+    const [formData, setFormData] = useState(initialLoginData);
+    const userinfo = useSelector(state => state.user);
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleInputChange = async (event) => {
         const { name, value } = event.target;
         setFormData((preval) => {
             return {
-
                 ...preval,
                 [name]: value
             }
@@ -15,9 +26,33 @@ const Login = () => {
     }
 
     const handleSubmit = async () => {
+        setLoading(true);
         const response = await API.subAdminLog(formData);
-        if(response.isSuccess){
-            console.log(response.data);
+        if (response.isSuccess) {
+            toast.success(`Welcome Back ${response.data.data.name}`, {
+                
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            setLoading(false);
+            setFormData(initialLoginData);
+            dispatch(addUser({ isAuthenticated: true, user: response.data.data }));
+            navigate("/admin/dashboard/1254");
+        } else {
+            setLoading(false);
+            toast.error(response.errormsg,{
+                
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     }
 
@@ -35,13 +70,13 @@ const Login = () => {
                                 <h3>Don't have an account? <span><a href="#">Contact Us</a></span></h3>
 
                                 <div className={"inputWrap"}>
-                                   
-                                        <div className={"custRow"}>
-                                            <input name='username' onChange={handleInputChange} type="text" placeholder='User Name' className={"inputs"} />
-                                            <input name='password' onChange={handleInputChange} type="text" placeholder='Password' className={"inputs"} />
-                                            <button onClick={handleSubmit} value="Submit" className={"submit"}>Submit</button>
-                                        </div>
-                                   
+
+                                    <div className={"custRow"}>
+                                        <input name='username' onChange={handleInputChange} value={formData.username} type="text" placeholder='User Name' className={"inputs"} />
+                                        <input name='password' onChange={handleInputChange} value={formData.password} type="password" placeholder='Password' className={"inputs"} />
+                                        <button onClick={handleSubmit} value="Submit" className={"submit"}>{loading ? <Loader /> : 'Submit'}</button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -21,6 +21,23 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            gap: 30px;
+
+            .adminDashbtn{
+                text-decoration: none;
+                padding: 10px;
+                border: 2px solid white;
+                outline: none;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: transparent;
+                color: aliceblue;
+                font-size: 1em;
+            }
+
+
         }
        
     }

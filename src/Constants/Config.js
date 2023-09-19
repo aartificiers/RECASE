@@ -31,5 +31,6 @@ export const API_NOTIFICATION_MESSAGES = {
 export const SERVICE_URLS = {
     subAdminReg: { url: "/subuser/signup", method: "POST" },
     subAdminLog: { url: "/subuser/signin", method: "POST" },
-   
+    getCookie:{url:"/getcookie",method:"GET"},
+    userLogOut:{url:"/subuser/logout",method:"GET"},
 }
