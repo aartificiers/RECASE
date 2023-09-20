@@ -8,24 +8,34 @@ import { addsData } from '../../../../Constants/dummy';
 
 const Dash = () => {
     const [luckyNum, setLuckyNum] = useState({ shubhank: "", finalank: [] });
+    const [ads, setAds] = useState([]);
+    const [adsUpdateData, setUpdateAds] = useState({adContent: ""});
     const [luckynumedit, setLuckyNumedit] = useState(false);
-
+    const [adEdit, setAdEdit] = useState(false);
+  
     useEffect(() => {
-
-        const fetchLuckyNum = async () => {
-
-            const res = await API.getluckyNum({ id: "6504c1e8c0972c9a038dd5a2" });
-
-            if (res.isSuccess) {
-                setLuckyNum(res.data);
-            } else {
-                console.log("error fetching");
-            }
-        }
-
         fetchLuckyNum();
-
+        fetchAds();
     }, []);
+     
+    const fetchLuckyNum = async () => {
+        const res = await API.getluckyNum({ id: "6504c1e8c0972c9a038dd5a2" });
+        if (res.isSuccess) {
+            setLuckyNum(res.data);
+        } else {
+            console.log("error fetching");
+        }
+    }
+
+    const fetchAds = async () => {
+        const res = await API.getAds();
+        if (res.isSuccess) {
+            setAds(res.data.data);
+        } else {
+            console.log("error fetching");
+        }
+    }
+
 
     const handleLuckyChange = (e) => {
         const { name, value } = e.target;
@@ -60,6 +70,24 @@ const Dash = () => {
 
     }
 
+    const handleAdSave = async (id,updateData) => {
+
+        const resp = await API.editAds({ id, updateData });
+
+        if (resp.isSuccess) {
+            console.log("Updation Successfull");
+            setAdEdit(null);
+            fetchAds();
+        } else {
+            console.log("updation failed");
+        }
+    }
+     const handleQuilChange = (adContent) =>{
+
+        setUpdateAds({adContent});
+        console.log(adContent);
+     }
+
     return (
         <div className="stats">
             <div className="statsWrap">
@@ -84,14 +112,17 @@ const Dash = () => {
                 </div>
                 <div className='adds-edit'>
                     <div className="adds-grid">
-                        {addsData.map((item, index) => {
-
+                        {ads.length> 0 ? ads.map((item, index) => {
                             return (
                                 <div key={index} className="adds">
-                                    <h1>Ad {index + 1}</h1>
-                                    <QuillEditor value={item.contents} /></div>
+                                    <div className='ads-heads'>
+                                        <h1>Ad {index + 1} </h1>
+                                      { adEdit !== index ? <button onClick={() => setAdEdit(index)}> <FaEdit /> </button> : <button onClick={() => handleAdSave(item._id , adsUpdateData)}> <FaSave /> </button> }
+                                    </div>
+                                    {adEdit === index ? <QuillEditor onChange={handleQuilChange} value={item.adContent} /> : <div dangerouslySetInnerHTML={{ __html: item.adContent }}></div>}
+                                </div>
                             )
-                        })}
+                        }):null}
                     </div>
                 </div>
 

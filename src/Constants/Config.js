@@ -36,7 +36,10 @@ export const SERVICE_URLS = {
     getluckyNum:{url:"/lucky/get",method:'GET',params:true},
     updateluckynum: { url: "/lucky/update", method: "POST" },
 
-
+    // api for ads
+    getAds: { url: "/ad/get", method: "GET" },
+    addAds: { url: "/ad/create", method: "POST" },
+    editAds: { url: "/ad/update", method: "POST" },
     
 }
 

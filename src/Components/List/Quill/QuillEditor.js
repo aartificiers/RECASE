@@ -21,11 +21,8 @@ const QuillEditor = ({ value, onChange }) => {
     ],
   };
 
-  return <SunEditor defaultValue={`<p>${value}</p>`} onChange={(cont)=>{console.log(cont);}} setOptions={editorOptions} />
+  return <SunEditor defaultValue={`<p>${value}</p>`} onChange={(cont)=>{onChange(cont);}} setOptions={editorOptions} />
 
-
-
-  
 };
 
 export default QuillEditor;
