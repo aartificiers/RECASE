@@ -55,7 +55,7 @@ function App() {
       }
     }
     if(userinfo.isAuthenticated && isPageReload()){
-      return null;
+      return undefined;
     }
     
     getCookie();

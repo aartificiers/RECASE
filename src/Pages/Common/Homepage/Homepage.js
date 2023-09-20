@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './homepage.scss';
 import TableListSwap from '../../../Components/TableListSwap/TableListSwap';
 import Adds from '../../../Components/Adds/Adds';
@@ -13,10 +13,29 @@ import { dateFormat } from '../../../Utils/DateFormat';
 import { Footer } from '../../../Components/Footer/Footer';
 import Navbar from '../../../Components/Navbar/Navbar';
 import { Helmet } from 'react-helmet';
+import { API } from '../../../Services/Api';
+import Marquee from 'react-fast-marquee';
 
 
 
 const Homepage = () => {
+
+   const [luckyData,setLuckyData]=useState({});
+
+
+   useEffect(()=>{
+      fetchLuckyData();
+   },[]);
+
+   const fetchLuckyData=async()=>{
+      const response=await API.getluckyNum({id:'6504c1e8c0972c9a038dd5a2'});
+      if(response.isSuccess){
+         console.log(response);
+         setLuckyData(response.data);
+      }
+   }
+
+
    return (
       <div className="main dark">
          <Helmet>
@@ -52,14 +71,20 @@ const Homepage = () => {
                            <div className={'rotator'}></div>
                            <div className={'overlay'}>
                               <h1 className='txtlgt'><span className='flash'>(शुभांक)</span></h1>
-                              <h3>{dateFormat()}</h3>
+                              <h3>{luckyData?.shubhank}</h3>
                            </div>
                         </div>
                         <div className={'luckyCard'}>
                            <div className={'rotator'}></div>
                            <div className={'overlay'}>
                               <h1 className='txtlgt'><span className='flash'>Final Ank</span></h1>
-                              <h3>{dateFormat()}</h3>
+                              <h3>
+                              <Marquee direction='up' autoFill={true} style={{width:"100%",height:"100px",minHeight:"100px"}}>
+                                 {luckyData.finalank?.length > 0 ? luckyData.finalank.map((item,indx)=>{
+                                    return <>{item}</>
+                                 }): null}
+                              </Marquee>
+                              </h3>
                            </div>
                         </div>
                      </div>
@@ -75,7 +100,7 @@ const Homepage = () => {
 
                   {/* Add section */}
 
-                  <Adds addContent={"<p>अपना बाजार Srboss.com वेबसाइट में डलवाने</p><p>के लिए आज ही हमें ईमेल करे</p><a href='#'>support@Srboss.com</a><p>शर्ते लागु</p>"} />
+                  <Adds addContent={""} />
                   <Adds addContent={"<p style= 'color:var(--neon-softgree);'>अब सभी मटका बाजार खेलो ऑनलाइन ऐप पर रोज खेलो रोज कमाओ अभी डाउनलोड करो</p><a>Play Online Matka</a><p style = 'color:var(--neon-softgree);'>With 100% Trusted App (NEW)</p><p style= 'color:var(--neon-softgree);'>Super Fast deposit and withdrawal</p>"} />
                   <Adds addContent={"<p style= 'color:var(--neon-blue); font-size:.5em;'>ATTA MATKA SATTA FAST RESULT KALYAN TOP MATKA RESULT KALYAN SATTA MATKA FAST RESULT MILAN RATAN RAJDHANI MAIN BAZAR MATKA FAST TIPS RESULT MATKA CHART JODI CHART PANEL CHART FREE FIX GAME SATTAMATKA ! MATKA MOBI SATTA 143 Srboss.com TOP NO1 RESULT FULL RATE MATKA ONLINE GAME PLAY BY APP Srboss</p>"} />
 
