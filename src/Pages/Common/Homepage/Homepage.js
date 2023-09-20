@@ -20,16 +20,16 @@ import Marquee from 'react-fast-marquee';
 
 const Homepage = () => {
 
-   const [luckyData,setLuckyData]=useState({});
+   const [luckyData, setLuckyData] = useState({});
 
 
-   useEffect(()=>{
+   useEffect(() => {
       fetchLuckyData();
-   },[]);
+   }, []);
 
-   const fetchLuckyData=async()=>{
-      const response=await API.getluckyNum({id:'6504c1e8c0972c9a038dd5a2'});
-      if(response.isSuccess){
+   const fetchLuckyData = async () => {
+      const response = await API.getluckyNum({ id: '6504c1e8c0972c9a038dd5a2' });
+      if (response.isSuccess) {
          console.log(response);
          setLuckyData(response.data);
       }
@@ -41,9 +41,9 @@ const Homepage = () => {
          <Helmet>
             <title>Homepage - SRboss.com</title>
          </Helmet>
-         
+
          <div className="mainWrap">
-            <Navbar/>
+            <Navbar />
             <div className={'homepage'}>
                <div className={'homepageWrap'}>
                   {/* Header */}
@@ -78,13 +78,16 @@ const Homepage = () => {
                            <div className={'rotator'}></div>
                            <div className={'overlay'}>
                               <h1 className='txtlgt'><span className='flash'>Final Ank</span></h1>
-                              <h3>
-                              <Marquee direction='up' autoFill={true} style={{width:"100%",height:"100px",minHeight:"100px"}}>
-                                 {luckyData.finalank?.length > 0 ? luckyData.finalank.map((item,indx)=>{
-                                    return <>{item}</>
-                                 }): null}
-                              </Marquee>
-                              </h3>
+                              <div className="marq-wrap">
+                                 <div className="marquee">
+                                    {luckyData.finalank?.length > 0 ? luckyData.finalank.map((item, indx) => {
+                                       return <div>{item}</div>
+                                    }) : null}
+                                 </div>
+                              </div>
+
+
+
                            </div>
                         </div>
                      </div>
