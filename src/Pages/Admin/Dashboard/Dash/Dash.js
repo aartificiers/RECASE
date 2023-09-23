@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './dash.scss';
 import { API } from '../../../../Services/Api';
 import DashHeader from '../../../../Components/AdminComponents/HeaderCompponent/DashHeader';
-import { FaEdit, FaSave } from 'react-icons/fa';
+import { FaDiceFive, FaEdit, FaSave } from 'react-icons/fa';
 import QuillEditor from '../../../../Components/List/Quill/QuillEditor';
-import { addsData, netWeeklyData } from '../../../../Constants/dummy';
+import { addsData, netWeeklyData, weeknumtableData } from '../../../../Constants/dummy';
+import { GiRollingDices } from 'react-icons/gi';
+
 
 const Dash = () => {
     const [luckyNum, setLuckyNum] = useState({ shubhank: "", finalank: [] });
     const [ads, setAds] = useState([]);
     const [netWeekly, setNetWeekly] = useState([]);
-    const [dayNight, setDayNight] = useState([1,2,3,4]);
+    const [dayNight, setDayNight] = useState([1, 2, 3, 4]);
     const [adsUpdateData, setUpdateAds] = useState({ adContent: "" });
     const [luckynumedit, setLuckyNumedit] = useState(false);
     const [adEdit, setAdEdit] = useState(null);
@@ -123,7 +125,7 @@ const Dash = () => {
                                 <div key={index} className="adds-view">
                                     <div className='ads-heads'>
                                         <h1>Ad {index + 1} </h1>
-                                        {adEdit !== index ? <button onClick={() => setAdEdit(index)}> <FaEdit /> </button> : <button onClick={() => handleAdSave(item._id, adsUpdateData)}> <FaSave /> </button>}
+                                        {adEdit !== index ? <button onClick={() => { setAdEdit(index); setUpdateAds({ adContent: item.adContent }) }}> <FaEdit /> </button> : <button onClick={() => handleAdSave(item._id, adsUpdateData)}> <FaSave /> </button>}
                                     </div>
                                     {adEdit === index ? <QuillEditor onChange={handleQuilChange} value={item.adContent} /> : <div dangerouslySetInnerHTML={{ __html: item.adContent }}></div>}
                                 </div>
@@ -158,17 +160,61 @@ const Dash = () => {
                             return (
                                 <div className="dynt-item">
                                     <div className="ttl">Milan MOrning</div>
-                                    {dnGuessingEdit === index ? <QuillEditor/> : <div className="guess-cont" >dgsgdssdsdsdsdgsd vsdgsdgsd bsgsd sdgsdgs fbsff df df d df df df df </div>}
-                                    <div className="btn-cont">
-                                        {dnGuessingEdit === index ? <button onClick={()=>setDnGuessingEdit(null)} ><FaSave/></button> : <button onClick={()=>setDnGuessingEdit(index)}><FaEdit /></button>}
-                                        
+                                    {dnGuessingEdit === index ? <QuillEditor /> : <div className="guess-cont" >dgsgdssdsdsdsdgsd vsdgsdgsd bsgsd sdgsdgs fbsff df df d df df df df </div>}
+                                    <div className="btn-cont ">
+                                        {dnGuessingEdit === index ? <button className='btn btn__primary' onClick={() => setDnGuessingEdit(null)} ><FaSave /></button> : <button className='btn btn__primary' onClick={() => setDnGuessingEdit(index)}><FaEdit /></button>}
+
                                     </div>
                                 </div>
                             )
 
-                        }):null}
+                        }) : null}
                     </div>
                 </div>
+
+                {/*week Number Table  */}
+                {/* table start */}
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        {weeknumtableData.map((item, index) => {
+                                return (
+                                item.content.map((contitem, indx) => {
+
+                                    return (
+
+                                        <tr key={index}>
+                                            <td>{contitem.week}</td>
+                                            {contitem.values.map((val, ind) => {
+                                                return (
+                                                    <td key={ind}>
+                                                        <div className="weekNumCol">
+                                                            <div className="left">
+                                                                {val.guessing}
+
+                                                            </div>
+                                                            <div className="right">
+                                                                <div className="rightTop">
+                                                                    <FaDiceFive />&nbsp;{val.patti}
+                                                                </div>
+                                                                <div className="rightBottom">
+                                                                    <GiRollingDices />&nbsp;{val.jodi}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                )
+                                            })}
+                                            {/* <td><button>Action</button></td> */}
+                                        </tr>
+                                    )
+                                })
+                                )
+                        })}
+
+                    </tbody>
+                </table>
 
             </div>
         </div>

@@ -37,13 +37,10 @@ const WeekNumTable = (props) => {
                                                     </div>
                                                 </div>
                                             </td>
+                                            
                                         )
-
-                                    })}
-
-
+                                    })} 
                                 </tr>
-
                             )
                         })}
 
