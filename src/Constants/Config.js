@@ -40,6 +40,11 @@ export const SERVICE_URLS = {
     getAds: { url: "/ad/get", method: "GET" },
     addAds: { url: "/ad/create", method: "POST" },
     editAds: { url: "/ad/update", method: "POST" },
+
+    // api for guessingtable
+    getGuessings:{ url: "/guessing/get", method: "GET" },
+    createGuessings: { url: "/guessing/create", method: "POST" },
+    updateGuessings:{ url: "/guessing/update", method: "POST" },
     
 }
 

@@ -6,23 +6,72 @@ import { FaDiceFive, FaEdit, FaSave } from 'react-icons/fa';
 import QuillEditor from '../../../../Components/List/Quill/QuillEditor';
 import { addsData, netWeeklyData, weeknumtableData } from '../../../../Constants/dummy';
 import { GiRollingDices } from 'react-icons/gi';
+import { toast } from 'react-toastify';
+import Spinner from '../../../../Components/Spinner/Spinner';
 
 
 const Dash = () => {
+    // Data Setting Variables
+    // ===========================
     const [luckyNum, setLuckyNum] = useState({ shubhank: "", finalank: [] });
     const [ads, setAds] = useState([]);
     const [netWeekly, setNetWeekly] = useState([]);
     const [dayNight, setDayNight] = useState([1, 2, 3, 4]);
+    const [guessingTableData, setGuessingTableData] = useState([]);
+
+    // Update Data Variables 
+    // ===========================
     const [adsUpdateData, setUpdateAds] = useState({ adContent: "" });
+    const [guessUpdateData, setGuessUpdateData] = useState({
+        week: "",
+        _id: '',
+        values: [{
+            guessing: '',
+            patti: '',
+            jodi: '',
+
+        },
+        {
+            guessing: '',
+            patti: '',
+            jodi: '',
+
+        },
+        {
+            guessing: '',
+            patti: '',
+            jodi: '',
+
+        },
+        {
+            guessing: '',
+            patti: '',
+            jodi: '',
+
+        },]
+    })
+
+    // Editing Id Variables
+    // ===========================
     const [luckynumedit, setLuckyNumedit] = useState(false);
     const [adEdit, setAdEdit] = useState(null);
     const [netEdit, setNetEdit] = useState(null);
     const [dnGuessingEdit, setDnGuessingEdit] = useState(null);
+    const [guessingTableEdit, setGuessingTableEdit] = useState(null);
+
+    // Common Variables
+    // ===========================
+    const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
         fetchLuckyNum();
         fetchAds();
+        fetchGuessingTableData();
     }, []);
+
+
+    // Fetching Functions
+    // =============================
 
     const fetchLuckyNum = async () => {
         const res = await API.getluckyNum({ id: "6504c1e8c0972c9a038dd5a2" });
@@ -32,7 +81,6 @@ const Dash = () => {
             console.log("error fetching");
         }
     }
-
     const fetchAds = async () => {
         const res = await API.getAds();
         if (res.isSuccess) {
@@ -41,7 +89,18 @@ const Dash = () => {
             console.log("error fetching");
         }
     }
+    const fetchGuessingTableData = async () => {
+        const res = await API.getGuessings();
+        if (res.isSuccess) {
+            setGuessingTableData(res.data.data);
+        } else {
+            console.log("error fetching");
+        }
+    }
 
+
+    // Handle Input Change Functions
+    // ******************************
 
     const handleLuckyChange = (e) => {
         const { name, value } = e.target;
@@ -63,6 +122,23 @@ const Dash = () => {
         }
 
     }
+    const handleQuilChange = (adContent) => {
+
+        setUpdateAds({ adContent });
+        console.log(adContent);
+    }
+    const handleGuessChange = (event, index) => {
+        const { name, value } = event.target;
+        const updatedData = { ...guessUpdateData };
+        updatedData.values[index][name] = value && !isNaN(value) ? parseInt(value) : '';
+        setGuessUpdateData(updatedData);
+    }
+
+
+
+
+    // Updations Functions
+    // ############################
     const handleLuckySave = async (id) => {
 
         const resp = await API.updateluckynum({ id: "6504c1e8c0972c9a038dd5a2", updateData: luckyNum });
@@ -75,24 +151,36 @@ const Dash = () => {
         }
 
     }
-
     const handleAdSave = async (id, updateData) => {
 
         const resp = await API.editAds({ id, updateData });
 
         if (resp.isSuccess) {
-            console.log("Updation Successfull");
+            toast.success("Ad Updated Successfully");
             setAdEdit(null);
             fetchAds();
         } else {
-            console.log("updation failed");
+            toast.error("Ad Updation Failed");
         }
     }
-    const handleQuilChange = (adContent) => {
+    const handleGuessingSave = async (id) => {
+        setFetching(true);
 
-        setUpdateAds({ adContent });
-        console.log(adContent);
+        const resp = await API.updateGuessings({ id: id, updateData: guessUpdateData });
+
+        if (resp.isSuccess) {
+            setGuessingTableEdit(null);
+            toast.success("1 Row Updated Successfully");
+            fetchGuessingTableData();
+            setFetching(false);
+        } else {
+            toast.error("Error In Updation");
+            setGuessingTableEdit(null);
+            setFetching(false);
+        }
+
     }
+
 
     return (
         <div className="stats">
@@ -152,7 +240,6 @@ const Dash = () => {
                     </div>
                 </div>
 
-
                 <div className="daynight-guessing">
                     <h1 className="sec-title">Day Night Guessing</h1>
                     <div className="dynt-grid">
@@ -172,49 +259,59 @@ const Dash = () => {
                     </div>
                 </div>
 
-                {/*week Number Table  */}
-                {/* table start */}
-                <table>
-                    <thead></thead>
-                    <tbody>
-                        {weeknumtableData.map((item, index) => {
-                                return (
-                                item.content.map((contitem, indx) => {
 
-                                    return (
+                <div className="weeknumtable-view">
+                    <div className="weeknumview-wrap">
+                        <h1 className="sec-title">Guessing Patti Table</h1>
+                        {guessingTableData?.map((weeknum, index) => {
+                            return (
+                                <div key={index} className="weeknum-tbl">
+                                    <h1>{weeknum.title}</h1>
+                                    <div className="tbl-wrap">
+                                        <table>
+                                            <thead></thead>
+                                            <tbody>
+                                                {
+                                                    weeknum.content.map((contitem, indx) => {
+                                                        return (
+                                                            <tr key={indx}>
+                                                                <td>{contitem.week}</td>
+                                                                {contitem.values.map((val, ind) => {
+                                                                    return (
+                                                                        <td key={ind}>
+                                                                            <div className="weekNumCol">
+                                                                                <div className="left">
+                                                                                    {guessingTableEdit === contitem._id ? <input type='text' name='guessing' value={val.guessing} onChange={(e) => { handleGuessChange(e, ind) }}></input> : val.guessing}
+                                                                                </div>
+                                                                                <div className="right">
+                                                                                    <div className="rightTop">
+                                                                                        {guessingTableEdit === contitem._id ? <input type='text' name='patti' value={val.patti} onChange={(e) => { handleGuessChange(e, ind) }} ></input> : val.patti}
+                                                                                    </div>
+                                                                                    <div className="rightBottom">
+                                                                                        {guessingTableEdit === contitem._id ? <input type='text' name='jodi' value={val.jodi} onChange={(e) => { handleGuessChange(e, ind) }}></input> : val.jodi}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    )
+                                                                })}
+                                                                <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>{guessingTableEdit === contitem._id ? <button className='btn btn__primary' onClick={() => handleGuessingSave(contitem._id)}><FaSave /></button> : <button className='btn btn__primary' onClick={() => { setGuessUpdateData(contitem); setGuessingTableEdit(contitem._id) }}><FaEdit /></button>}</div></td>
+                                                            </tr>
+                                                        )
+                                                    })
 
-                                        <tr key={index}>
-                                            <td>{contitem.week}</td>
-                                            {contitem.values.map((val, ind) => {
-                                                return (
-                                                    <td key={ind}>
-                                                        <div className="weekNumCol">
-                                                            <div className="left">
-                                                                {val.guessing}
+                                                }
 
-                                                            </div>
-                                                            <div className="right">
-                                                                <div className="rightTop">
-                                                                    <FaDiceFive />&nbsp;{val.patti}
-                                                                </div>
-                                                                <div className="rightBottom">
-                                                                    <GiRollingDices />&nbsp;{val.jodi}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                            </tbody>
+                                        </table>
 
-                                                )
-                                            })}
-                                            {/* <td><button>Action</button></td> */}
-                                        </tr>
-                                    )
-                                })
-                                )
+                                    </div>
+                                </div>
+                            )
                         })}
+                    </div>
+                </div>
 
-                    </tbody>
-                </table>
 
             </div>
         </div>

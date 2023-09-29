@@ -140,8 +140,9 @@
                     border-radius: 10px;
 
                     p {
-                        text-align: center;
+                        text-align: center !important;
                         font-weight: 500;
+                        color: black !important;
                     }
 
                     .ads-heads {
@@ -284,6 +285,129 @@
                         z-index: 2;
                         justify-content: end;
                         transition: 0.5s;
+                    }
+                }
+            }
+        }
+
+        .weeknumtable-view {
+            width: 100%;
+            padding: 25px;
+
+            .weeknumview-wrap {
+                width: 100%;
+
+                .weeknum-tbl {
+                    width: 100%;
+                    margin: 20px 0;
+                    box-shadow: .3rem .3rem .6rem var(--greyLight-2),
+                        -.2rem -.2rem .5rem var(--white);
+                    $inner-shadow: inset .2rem .2rem .5rem var(--greyLight-2),
+                        inset -.2rem -.2rem .5rem var(--white);
+                    border-radius: 10px;
+                    overflow: hidden;
+
+                    h1{
+                        width: 100%;
+                        padding: 10px;
+                        text-align: center;
+                        background: var(--greyDark);
+                        color: white;
+                        text-transform: uppercase;
+                    }
+
+
+                    .tbl-wrap {
+                        width: 100%;
+                        
+
+                        table {
+                            border-collapse: collapse;
+                            width: 100%;
+
+
+                            tbody {
+                                width: 100%;
+
+                                tr {
+                                    border: 2px solid var(--greyDark);
+
+                                    &:last-child {
+                                        border-bottom-left-radius: 8px;
+                                    }
+
+                                    td {
+                                        border-left: 2px solid var(--greyDark);
+                                        border-right: 2px solid var(--greyDark);
+
+                                        input{
+                                            width: 40px;
+                                            height: 40px;
+                                        }
+
+                                        &:nth-child(1) {
+                                            font-size: 1.5em;
+                                            text-align: center;
+                                            padding: 10px 0;
+                                            font-weight: 600;
+                                            text-transform: uppercase;
+
+                                        }
+
+                                        .weekNumCol {
+                                            width: 100%;
+                                            height: 100%;
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
+
+
+                                            .left {
+                                                width: 50%;
+                                                height: 100%;
+                                                font-size: 2em;
+                                                text-align: center;
+                                                padding: 10px 0;
+                                                font-weight: 600;
+                                                color: var(--greyDark);
+
+
+
+
+                                            }
+
+                                            .right {
+                                                width: 50%;
+                                                height: 100%;
+                                                font-size: 1.2em;
+                                                text-align: center;
+                                                text-align: center;
+                                                border-left: 2px solid var(--greyDark);
+
+                                                .rightTop {
+                                                    border-bottom: 2px solid var(--greyDark);
+                                                    padding: 8px 0;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+
+                                                }
+
+                                                .rightBottom {
+                                                    padding: 8px 0;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
                     }
                 }
             }

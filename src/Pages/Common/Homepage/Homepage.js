@@ -21,19 +21,40 @@ import Marquee from 'react-fast-marquee';
 const Homepage = () => {
 
    const [luckyData, setLuckyData] = useState({});
+   const [addsData,setAdData]=useState([]);
+   const [guessingTable,setGuessingTable]=useState([]);
 
 
    useEffect(() => {
       fetchLuckyData();
+      fetchAds();
+      fetchGuessingTableData();
    }, []);
 
    const fetchLuckyData = async () => {
       const response = await API.getluckyNum({ id: '6504c1e8c0972c9a038dd5a2' });
       if (response.isSuccess) {
-         console.log(response);
          setLuckyData(response.data);
       }
    }
+   const fetchAds = async () => {
+      const res = await API.getAds();
+      if (res.isSuccess) {
+          setAdData(res.data.data);
+      } else {
+          console.log("error fetching");
+      }
+  }
+  const fetchGuessingTableData = async () => {
+      const res = await API.getGuessings();
+      if (res.isSuccess) {
+          setGuessingTable(res.data.data);
+      } else {
+          console.log("error fetching");
+      }
+  }
+
+  console.log(addsData[0]?.adContent);
 
 
    return (
@@ -103,9 +124,9 @@ const Homepage = () => {
 
                   {/* Add section */}
 
-                  <Adds addContent={""} />
-                  <Adds addContent={"<p style= 'color:var(--neon-softgree);'>अब सभी मटका बाजार खेलो ऑनलाइन ऐप पर रोज खेलो रोज कमाओ अभी डाउनलोड करो</p><a>Play Online Matka</a><p style = 'color:var(--neon-softgree);'>With 100% Trusted App (NEW)</p><p style= 'color:var(--neon-softgree);'>Super Fast deposit and withdrawal</p>"} />
-                  <Adds addContent={"<p style= 'color:var(--neon-blue); font-size:.5em;'>ATTA MATKA SATTA FAST RESULT KALYAN TOP MATKA RESULT KALYAN SATTA MATKA FAST RESULT MILAN RATAN RAJDHANI MAIN BAZAR MATKA FAST TIPS RESULT MATKA CHART JODI CHART PANEL CHART FREE FIX GAME SATTAMATKA ! MATKA MOBI SATTA 143 Srboss.com TOP NO1 RESULT FULL RATE MATKA ONLINE GAME PLAY BY APP Srboss</p>"} />
+                  <Adds addContent={addsData[0]?.adContent} />
+                  <Adds addContent={addsData[1]?.adContent} />
+                  <Adds addContent={"<p style= 'color:var(--neon-blue); font-size:.5em;'>SATTA MATKA SATTA FAST RESULT KALYAN TOP MATKA RESULT KALYAN SATTA MATKA FAST RESULT MILAN RATAN RAJDHANI MAIN BAZAR MATKA FAST TIPS RESULT MATKA CHART JODI CHART PANEL CHART FREE FIX GAME SATTAMATKA ! MATKA MOBI SATTA 143 Srboss.com TOP NO1 RESULT FULL RATE MATKA ONLINE GAME PLAY BY APP Srboss</p>"} />
 
                   {/* World best Result HEADING */}
 
@@ -118,7 +139,7 @@ const Homepage = () => {
                   </div>
 
                   {/* adds section again */}
-                  <Adds addContent={"<p>Email for any inquiries Or Support: srboss.net@gmail.com</p>"} />
+                  <Adds addContent={addsData[2]?.adContent} />
 
                   {/* Netweekly*/}
 
@@ -127,8 +148,8 @@ const Homepage = () => {
 
                   })}
 
-                  <Adds addContent={"<p style= 'color:var(--neon-musturd); font-size:.8em;'>FREE GAME ZONE OPEN-CLOSE</p>"} />
-                  <Adds addContent={"<p style= 'color:var(--neon-purple); font-size:.7em;'>✔DATE:↬ : 01/08/2023 ↫</p><p style= 'color:var(--neon-purple); font-size:.7em;'>FREE GUESSING DAILY</p><p style= 'color:var(--neon-purple); font-size:.7em;'>OPEN TO CLOSE FIX ANK</p>"} />
+                  <Adds addContent={addsData[3]?.adContent} />
+                  <Adds addContent={addsData[4]?.adContent} />
 
 
 
@@ -148,7 +169,7 @@ const Homepage = () => {
                   </div>
 
                   {/*week Number Table  */}
-                  {weeknumtableData.map((itm, ind) => {
+                  {guessingTable?.map((itm, ind) => {
                      return <WeekNumTable key={ind} title={itm.title} content={itm.content} />
                   })}
 
