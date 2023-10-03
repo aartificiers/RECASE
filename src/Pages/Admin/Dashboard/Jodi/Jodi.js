@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './jodi.scss';
 import DashHeader from '../../../../Components/AdminComponents/HeaderCompponent/DashHeader';
 import { BsPlusSquare } from 'react-icons/bs';
 import Modal from '../../../../Components/AdminComponents/modal/Modal';
 import { jodidata } from '../../../../Constants/dummy';
 
-const Jodi = () => {
+const Jodi = ({jodi_id}) => {
     const [openModal, setOpenModal] = useState(false);
-    const [editId, setEditId] = useState(null)
+    const [editId, setEditId] = useState(null);
     return (
         <div className="adminjodi">
             <div className="adminjodiWrap">

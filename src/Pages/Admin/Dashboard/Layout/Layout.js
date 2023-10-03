@@ -24,7 +24,7 @@ const Layout = () => {
     let [sideBarToggle, setSideBarToggle] = useState(false);
     const navigate=useNavigate();
     const dispatch= useDispatch();
-    const {id} = useParams();
+    const {page,id} = useParams();
 
 
     const logout=()=>{
@@ -63,7 +63,7 @@ const Layout = () => {
             <ul className="listItems">
               <li>
                 <div title="SR Boss" className='logo'><Link to={"/home"}>SR Dash</Link></div>
-                <div className="user"><Link to={"#"}><div className='avatar'></div>{userInfo?.user.name?.split(" ")[0]}</Link></div>
+                <div className="user"><Link to={"#"}><img src={userInfo.user.profilepic} alt='avatar' width={100} height={100} />{userInfo.user.name}</Link></div>
                 <div className="menu-list"><Link to={"/admin/dashboard/dash"}><BiSolidDashboard />Dashboard</Link></div>
                 <div className="menu-list"><Link to={"/admin/dashboard/subuser"}><FaUser />Sub User</Link></div>
                 <div className="menu-list"><Link to={"/admin/dashboard/games"}><IoGameController />Games</Link></div>
@@ -79,11 +79,11 @@ const Layout = () => {
         </div>
         <div className="rightSide">
           {
-            id === 'dash'?<Dash/>:
-            id === 'panel'?<Panel/>:
-            id === 'games'?<Games/>:
-            id === 'jodi'?<Jodi/>:
-            id === 'subuser'?<Subuser/>:null
+            page === 'dash'?<Dash/>:
+            page === 'panel'?<Panel/>:
+            page === 'games'?<Games/>:
+            page === 'jodi' && (id!=null || id!=undefined || id!="")?<Jodi jodi_id={id} />:
+            page === 'subuser'?<Subuser/>:null
           }
         </div>
       </div>

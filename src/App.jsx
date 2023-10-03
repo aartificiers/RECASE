@@ -48,7 +48,7 @@ function App() {
           return null;
         }
         dispatch(addUser({ isAuthenticated: true, user: response.data.data }));
-        navigate("/admin/dashboard/12345");
+        navigate('/admin/dashboard/dash');
       } else {
         dispatch(addUser({ isAuthenticated: false, user: {} }));
         setLoading(false);
@@ -105,7 +105,15 @@ function App() {
         <Route path='*' element={<Homepage />} />
 
         <Route
-          path={'admin/dashboard/:id'}
+          path={'admin/dashboard/:page'}
+          element={
+            <PrivateRoute isAdminAuthenticated={userinfo.isAuthenticated}>
+              <Layout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={'admin/dashboard/:page/:id'}
           element={
             <PrivateRoute isAdminAuthenticated={userinfo.isAuthenticated}>
               <Layout />

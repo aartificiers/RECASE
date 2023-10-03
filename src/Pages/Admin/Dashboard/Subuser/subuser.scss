@@ -31,6 +31,21 @@
                     padding: 0 10px;
                     font-size: 1em;
                 }
+
+                input {
+                    min-width: 200px;
+                    height: 35px;
+                    border-radius: 6px;
+                    background: var(--prclr);
+                    color: var(--scclr);
+                    padding: 0 10px;
+                    font-size: 1em;
+
+                    &::placeholder {
+                        color: var(--scclr);
+                    }
+
+                }
             }
 
             .barRight {
@@ -38,7 +53,7 @@
                 display: flex;
                 justify-content: flex-end;
 
-                button{
+                button {
                     width: 35px;
                     height: 35px;
                     display: flex;
@@ -111,6 +126,11 @@
 
                         td {
                             padding: 5px 10px;
+                            button{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
 
                             .btns {
                                 display: flex;
@@ -129,17 +149,67 @@
                                     border-radius: 5px;
                                 }
                             }
+                            .actn-btn{
+                                border: none;
+                                outline: none;
+                                padding: 5px;
+                                border-radius: 3px;
+                                background: var(--prclr);
+                                color: var(--scclr);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
                         }
+                    }
+                }
+            }
+
+            .table-config {
+                width: 100%;
+
+                .table-config-wrap {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    .pagination-btn {
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        gap: 10px;
+                        margin-right: 25px;
+
+                        button {
+                            width: 25px;
+                            height: 25px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            outline: none;
+                            border: none;
+                            background: var(--prclr);
+                            color: var(--scclr);
+                            border-radius: 3px;
+
+                        }
+
+                        h1 {
+                            font-size: 25px;
+                        }
+
                     }
                 }
             }
         }
 
-        .formWrap{
+        .formWrap {
 
-            .form-item{
+            .form-item {
 
-                button{
+                button {
                     width: 100%;
                     height: 45px;
                     padding: 10px;
@@ -150,10 +220,33 @@
                     font-size: 1em;
                     border-radius: 10px;
 
-                    &:hover{
+                    &:hover {
                         background: #cccccc13;
                     }
                 }
+
+                .avatar-cont {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+
+                    label {
+                        width: 50px;
+                        display: block;
+                        height: 50px;
+                        overflow: hidden;
+                        border-radius: 50%;
+                        border: 3px solid white;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -171,7 +264,8 @@
 .css-5wly58-MuiDataGrid-root {
     border-radius: 8px !important;
 }
-.css-ptiqhd-MuiSvgIcon-root{
+
+.css-ptiqhd-MuiSvgIcon-root {
     color: #fff;
 }
 

@@ -31,7 +31,11 @@ export const API_NOTIFICATION_MESSAGES = {
 export const SERVICE_URLS = {
     subAdminReg: { url: "/subuser/signup", method: "POST" },
     subAdminLog: { url: "/subuser/signin", method: "POST" },
+    getSubAdmins: { url: "/subuser/get", method: "GET", params: true },
+    getSubAdminsByEmail:{url:"/subuser/get/email",method:"GET",params:true},
+    getSubAdminsById:{url:"/subuser/get/id",method:"GET",params:true},
     getCookie:{url:"/getcookie",method:"GET"},
+    deleteAdmin:{url:'/subuser/delete',method:'DELETE',query:true},
     userLogOut:{url:"/subuser/logout",method:"GET"},
     getluckyNum:{url:"/lucky/get",method:'GET',params:true},
     updateluckynum: { url: "/lucky/update", method: "POST" },
@@ -45,6 +49,12 @@ export const SERVICE_URLS = {
     getGuessings:{ url: "/guessing/get", method: "GET" },
     createGuessings: { url: "/guessing/create", method: "POST" },
     updateGuessings:{ url: "/guessing/update", method: "POST" },
+
+    // api for games
+    getAllGames:{ url: "/game/all", method: "GET" ,params: true },
+    getOwnersGames:{url:"/game/owner",method:"GET",params: true},
+    createGame:{url:"/game/create",method:"POST"},
+    updateGame:{url:"/game/update",method:"POST"}
     
 }
 
