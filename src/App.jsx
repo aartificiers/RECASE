@@ -102,6 +102,7 @@ function App() {
         <Route path={'/privacy'} element={<Privacypage />} />
         <Route path={'/terms'} element={<Termscondition />} />
         <Route path={'/admin/login'} element={<Login />} />
+        <Route path={'/admin'} element={<Login />} />
         <Route path='*' element={<Homepage />} />
 
         <Route
