@@ -8,7 +8,7 @@ import store from './Store/reduxStore.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <Router basename='https://srboss.onrender.com/'>
+    <Router basename='/'>
       <App />
     </Router>
   </Provider>
