@@ -2,14 +2,21 @@ import React, { useEffect, useState } from 'react';
 import "./tablelistswap.scss";
 import { RiRefreshLine } from "react-icons/ri";
 import { liveUpdate } from '../../Constants/dummy';
+import { API } from '../../Services/Api';
 
 const TableListSwap = () => {
     const [windowDimensions, setWindowDimensions] = useState({
         width:  0,
         height:  0,
     });
+    const [liveGames,setLiveGames]=useState([]);
+
+    useEffect(()=>{
+        fetchLiveGames();
+    },[]);
 
     useEffect(() => {
+        
         function updateWindowDimensions() {
             setWindowDimensions({
                 width: typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -34,6 +41,13 @@ const TableListSwap = () => {
 
     }, []);
 
+    const fetchLiveGames=async()=>{
+        const resp=await API.getAllGamesWithLive();
+        if (resp.isSuccess) {
+           setLiveGames(resp.data.data);
+        } 
+     }
+
     return (
 
         <div className='TableListSwap'>
@@ -42,7 +56,7 @@ const TableListSwap = () => {
                     <div className='liveList'>
                         <div className="liveListWrap">
                             <ul>
-                                {liveUpdate.map((item, index) => {
+                                {liveGames?.map((item, index) => {
                                     return (
                                         <li key={index}>
                                             <div className='liveTop'>
@@ -87,7 +101,7 @@ const TableListSwap = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {liveUpdate.map((item, index) => {
+                                        {liveGames?.map((item, index) => {
                                             return (
                                                 <tr key={index}>
                                                     <td>

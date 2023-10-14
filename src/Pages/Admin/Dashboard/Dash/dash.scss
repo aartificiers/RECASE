@@ -15,6 +15,9 @@
 
     .sec-title {
         padding: 5px 0;
+        gap: 15px;
+        display: flex;
+        align-items: center;
         border-bottom: 2px solid var(--greyLight-3);
         text-transform: uppercase;
     }

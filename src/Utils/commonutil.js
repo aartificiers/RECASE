@@ -2,28 +2,36 @@
 
 import { API } from "../Services/Api";
 
-// export const checkTokenExpiration = () => {
 
-//   const token = sessionStorage.getItem('accessToken');
-//   if (token) {
-//     const decodedToken = jwtDecode(token);
-//     if (decodedToken.exp * 1000 < Date.now()) {
-//       // Token has expired
-//       sessionStorage.removeItem('accessToken');
-//       sessionStorage.removeItem('refreshToken');
-//       sessionStorage.removeItem('isLogined');
-//       localStorage.removeItem('visited');
-//       return true;
-//     } else {
-//       // Token is still valid
-//       return false;
-//       // Set up timer to check for token expiration
-//     }
-//   }else{
-//     return true;
-//   }
+export function convertDate(dateString) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+  const year = String(date.getFullYear()).slice(-2); // Get the last two digits of the year
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
 
-//   }
+export function sortArrayByDate(arrayOfObjects) {
+  // Use the JavaScript Array.sort() method with a custom comparator function
+  arrayOfObjects?.sort((a, b) => {
+    const createdAtA = new Date(a.createdAt);
+    const createdAtB = new Date(b.createdAt);
+
+    // Compare createdAt values in descending order
+    if (createdAtA > createdAtB) {
+      return -1;
+    } else if (createdAtA < createdAtB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  return arrayOfObjects;
+}
 
 export const getCookie=(cookieName)=> {
   // Split the cookie string into an array of key-value pairs

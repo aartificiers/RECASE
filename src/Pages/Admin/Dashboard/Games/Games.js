@@ -5,7 +5,7 @@ import { BsPlusSquare } from 'react-icons/bs';
 import Modal from '../../../../Components/AdminComponents/modal/Modal';
 import { useSelector } from 'react-redux';
 import { API } from '../../../../Services/Api';
-import { FaEdit, FaSave, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaEye, FaSave, FaTrash, FaTrashAlt } from 'react-icons/fa';
 import { BiLogoGmail, BiSolidPhoneCall } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { TbArrowWaveLeftDown, TbArrowWaveRightUp } from 'react-icons/tb';
@@ -29,16 +29,19 @@ const initialGameUpdateData = {
     gametype: "Mumbai Side",
     result: "",
     time: "",
+    hilite: false,
+    islive: false
 }
 
 const Games = () => {
     const userInfo = useSelector(state => state.user);
     const [openModal, setOpenModal] = useState(false);
-    const [ownerModal,setOwnerModal]=useState(false);
-    const [ownerDetailsModal,setOwnerDetailsModal]=useState(false);
-    const [ownerDetails,setOwnerDetails]=useState({});
-    const [selectedGammeForOwner,setSelectedGame]=useState(null);
+    const [ownerModal, setOwnerModal] = useState(false);
+    const [ownerDetailsModal, setOwnerDetailsModal] = useState(false);
+    const [ownerDetails, setOwnerDetails] = useState({});
+    const [selectedGammeForOwner, setSelectedGame] = useState(null);
     const [tableData, setTableData] = useState([]);
+    const [deletedGames, setDeletedGames] = useState([]);
     const [filteredTerm, setFilteredTerm] = useState(initialfiltervalue);
     const [sortBy, setSortBy] = useState("fullname");
     const [searchSelected, setSearchSelected] = useState(false);
@@ -56,6 +59,7 @@ const Games = () => {
     useEffect(() => {
 
         fetchGames();
+        fetchDeletedGames();
     }, [itemPerPage, currentPage, toggle, searchSelected]);
 
     const fetchGames = async () => {
@@ -68,7 +72,7 @@ const Games = () => {
         }
 
         if (response.isSuccess) {
-            console.log("eddfrer", response);
+
             setTableData(response.data.data || []);
             setPageNumbers(Math.ceil(response.data.totalCount / itemPerPage));
             setIsLoading(false);
@@ -79,15 +83,34 @@ const Games = () => {
 
         }
     }
+    const fetchDeletedGames = async () => {
+        let response = null;
+        if (userInfo.user.role === "BENJO") {
+            response = await API.getAllDeletedGames();
 
-    const fetchIndividualAdmin= async(id)=>{
-        const resp=await API.getSubAdminsById({id:id});
+            if (response.isSuccess) {
+                setDeletedGames(response.data.data);
+            }
+        }
+    }
 
-        if(resp.isSuccess){
+    const fetchIndividualAdmin = async (id, gameId) => {
+        const resp = await API.getSubAdminsById({ id: id });
+
+        if (resp.isSuccess) {
             setOwnerDetails(resp.data);
             setOwnerDetailsModal(true);
-        }else{
-            toast.error(resp.errormsg);
+        } else {
+            toast.error("Owner Not Found");
+            toast.warning("Owner Removal Started");
+            const response = await API.updateGame({ id: gameId, updateData: { owner_id: "" } });
+            if (response.isSuccess) {
+                toast.success("Owner Removed From This Game Successfully");
+                fetchGames();
+            } else {
+                toast.error("Owner removal failed");
+            }
+
         }
 
     }
@@ -126,11 +149,25 @@ const Games = () => {
     }
     );
 
-    const handleDeleteAdmin = async (id) => {
-        if (window.confirm("Do You Really Want To Delete This Participant") === true) {
-            const response = await API.deleteAdmin({ id });
+    const handleDeleteGame = async (id) => {
+        if (window.confirm("Do You Really Want To Delete This Game") === true) {
+            const response = await API.updateGame({ id,updateData:{isDeleted:true}});
             if (response.isSuccess) {
+                toast.success("Deleted Successfully");
                 setToggle(!toggle);
+            }else{
+                toast.error("Deletion Failed !!");
+            }
+        }
+    }
+    const handleUnhideGame = async (id) => {
+        if (window.confirm("Do You Really Want To Take Back This Game") === true) {
+            const response = await API.updateGame({ id,updateData:{isDeleted:false}});
+            if (response.isSuccess) {
+                toast.success("Taken Game Back Successfully");
+                setToggle(!toggle);
+            }else{
+                toast.error("Unhide failed !!");
             }
         }
     }
@@ -155,6 +192,26 @@ const Games = () => {
             }
         })
     }
+    const handleUpdateHiliteChange = async (e) => {
+
+        const { name, checked } = e.target;
+        setGameUpdateData((preval) => {
+            return {
+                ...preval,
+                hilite: checked
+            }
+        })
+    }
+    const handleUpdateIsLiveChange = async (e) => {
+
+        const { name, checked } = e.target;
+        setGameUpdateData((preval) => {
+            return {
+                ...preval,
+                islive: checked
+            }
+        })
+    }
 
     const handleCreateGame = async () => {
         setIsLoading(true);
@@ -173,15 +230,15 @@ const Games = () => {
 
     }
 
-    const handleUpdateGame=async (id)=>{
+    const handleUpdateGame = async (id) => {
 
-        const response=await API.updateGame({id,updateData:gameUpdateData});
+        const response = await API.updateGame({ id, updateData: gameUpdateData });
 
-        if(response.isSuccess){
+        if (response.isSuccess) {
             toast.success("One Row Updated Successfully");
             setEditingId(null);
             fetchGames();
-        }else{
+        } else {
             toast.error("Updation Failed");
         }
 
@@ -192,22 +249,19 @@ const Games = () => {
         setCurrentPage(1);
     }
 
-    const handleOwnerSelect= async(value)=>{
-        
-        const resp=await API.updateGame({id:selectedGammeForOwner._id,updateData:{owner_id:value._id}});
+    const handleOwnerSelect = async (value) => {
 
-        if(resp.isSuccess){
+        const resp = await API.updateGame({ id: selectedGammeForOwner._id, updateData: { owner_id: value._id } });
+
+        if (resp.isSuccess) {
             toast.success(`${value.fullname} is Owner Of ${selectedGammeForOwner.gamename}`);
             setSelectedGame(null);
             setOwnerModal(false);
             fetchGames();
-        }else{
+        } else {
             toast.error("Owner Updation Failed !!");
         }
     }
-
-    console.log(ownerDetails);
-
 
     return (
         <div className="game">
@@ -229,7 +283,7 @@ const Games = () => {
                         </select>
                     </div>
                     <div className="rightbar">
-                        <button onClick={() => setOpenModal(true)}><BsPlusSquare /></button>
+                        {userInfo.user.role === "BENJO" && <button onClick={() => setOpenModal(true)}><BsPlusSquare /></button>}
                     </div>
                 </div>
                 <div className="tableBody">
@@ -240,8 +294,10 @@ const Games = () => {
                                 <th>Game</th>
                                 <th>Type</th>
                                 <th>Result</th>
-                                <th>Owner</th>
+                                {userInfo.user.role === "BENJO" && <th>Owner</th>}
                                 <th>Time</th>
+                                <th>Highlighted</th>
+                                <th>Live</th>
                                 <th>Jodi</th>
                                 <th>Panel</th>
                                 <th>Action</th>
@@ -251,9 +307,9 @@ const Games = () => {
                             {filteredData && filteredData.length > 0 ? filteredData.map((data, indx) => {
 
                                 return (
-                                    <tr key={indx} style={{ background: data.hilite ? "#5eff89" : "" }}>
+                                    <tr key={indx} style={{ background: data.hilite && userInfo.user.role === "BENJO" ? "#ff96ad" : "" }}>
                                         <td>{indx + 1}</td>
-                                        <td>{editingId === data._id ? <input type='text' name='gamename' onChange={handleUpdateInputChange} value={gameUpdateData.gamename} /> : data.gamename}</td>
+                                        <td>{editingId === data._id && userInfo.user.role === "BENJO" ? <input type='text' name='gamename' onChange={handleUpdateInputChange} value={gameUpdateData.gamename} /> : data.gamename}</td>
                                         <td>{editingId === data._id ?
                                             <select name="gametype" id="gametype" onChange={handleUpdateInputChange} value={gameUpdateData.gametype} >
                                                 <option hidden selected>Choose Type</option>
@@ -262,11 +318,13 @@ const Games = () => {
                                                 <option value="Star Line">Star Line Game</option>
                                             </select> : data.gametype}</td>
                                         <td>{editingId === data._id ? <input type='text' name='result' onChange={handleUpdateInputChange} value={gameUpdateData.result} /> : data.result}</td>
-                                        <td>{data.owner_id != null && data.owner_id !== "" ? <button onClick={()=>fetchIndividualAdmin(data.owner_id)}>Owner</button> : <button onClick={()=>{setSelectedGame(data);setOwnerModal(true)}} >Add</button>}</td>
+                                        {userInfo.user.role === "BENJO" && <td>{data.owner_id != null && data.owner_id !== "" ? <button className='actn-btn' onClick={() => { fetchIndividualAdmin(data.owner_id, data._id) }}>Owner</button> : <button className='actn-btn' onClick={() => { setSelectedGame(data); setOwnerModal(true) }} >Add</button>}</td>}
                                         <td>{editingId === data._id ? <input type='text' name='time' onChange={handleUpdateInputChange} value={gameUpdateData.time} /> : data.time}</td>
-                                        <td><Link to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
-                                        <td><button>Panel</button></td>
-                                        <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center",gap:"5px" }}>{editingId === data._id ? <button className='actn-btn' onClick={() => handleUpdateGame(data._id)}><FaSave /></button> : <button className='actn-btn' onClick={() => { setGameUpdateData({gamename:data.gamename,gametype:data.gametype,result:data.result,time:data.time});setEditingId(data._id) }}><FaEdit /></button>} <button onClick={() => handleDeleteAdmin(data._id)} className='actn-btn'><FaTrash /></button>  </div></td>
+                                        <td>{editingId === data._id && userInfo.user.role === "BENJO" ? <input type='checkbox' checked={gameUpdateData.hilite} onChange={handleUpdateHiliteChange} /> : data.hilite ? "YES" : "NO"}</td>
+                                        <td>{editingId === data._id && userInfo.user.role === "BENJO" ? <input type='checkbox' checked={gameUpdateData.islive} onChange={handleUpdateIsLiveChange} /> : data.islive ? <div className='flashing-dot'></div> : "NO"}</td>
+                                        <td><Link className='actn-btn' to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
+                                        <td><Link className='actn-btn' to={`/admin/dashboard/panel/${data.panel_id}`}>Panel</Link></td>
+                                        <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>{editingId === data._id ? <button className='actn-btn' onClick={() => handleUpdateGame(data._id)}><FaSave /></button> : <button className='actn-btn' onClick={() => { setGameUpdateData({ gamename: data.gamename, gametype: data.gametype, result: data.result, time: data.time, hilite: data.hilite, islive:data.islive }); setEditingId(data._id) }}><FaEdit /></button>} {userInfo.user.role === "BENJO" && <button onClick={() => handleDeleteGame(data._id)} className='actn-btn'><FaTrash /></button>} </div></td>
                                     </tr>
                                 )
                             }) : (
@@ -278,7 +336,6 @@ const Games = () => {
                                     <td>At</td>
                                     <td>This</td>
                                     <td>Moment</td>
-
                                 </tr>
                             )}
                         </tbody>
@@ -296,6 +353,77 @@ const Games = () => {
                     </div>
 
                 </div>
+
+
+                {userInfo.user.role === "BENJO" ? (
+                    <div className="tableBody">
+                        <h3>Deleted Games</h3>
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th onClick={() => handleSort("id")}>S.No</th>
+                                    <th>Game</th>
+                                    <th>Type</th>
+                                    <th>Result</th>
+                                    <th>Owner</th>
+                                    <th>Time</th>
+                                    <th>Highlighted</th>
+                                    <th>Live</th>
+                                    <th>Jodi</th>
+                                    <th>Panel</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {deletedGames && deletedGames.length > 0 ? deletedGames.map((data, indx) => {
+
+                                    return (
+                                        <tr key={indx} style={{ background: data.hilite && userInfo.user.role === "BENJO" ? "#ff96ad" : "" }}>
+                                            <td>{indx + 1}</td>
+                                            <td>{data.gamename}</td>
+                                            <td>{data.gametype}</td>
+                                            <td>{data.result}</td>
+                                            <td>{data.owner_id != null && data.owner_id !== "" ? <button className='actn-btn' onClick={() => { fetchIndividualAdmin(data.owner_id, data._id) }}>Owner</button> : null}</td>
+                                            <td>{data.time}</td>
+                                            <td>{data.hilite ? "YES" : "NO"}</td>
+                                            <td>{data.islive ? <div className='flashing-dot'></div> : "NO"}</td>
+                                            <td><Link className='actn-btn' to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
+                                            <td><Link className='actn-btn' to={`/admin/dashboard/panel/${data.jodi_id}`}>Panel</Link></td>
+                                            <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}><button className='actn-btn' onClick={()=>handleUnhideGame(data._id)}><FaEye/></button> </div></td>
+                                        </tr>
+                                    )
+                                }) : (
+                                    <tr>
+                                        <td>{isLoading ? <p>Fetching Data...</p> : null}</td>
+                                        <td>No</td>
+                                        <td>Data</td>
+                                        <td>Availabe</td>
+                                        <td>At</td>
+                                        <td>This</td>
+                                        <td>Moment</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+
+                        <div className="table-config">
+                            <div className="table-config-wrap">
+                                <div className="pagination-btn">
+                                    <p>Pagination</p>
+                                    <button onClick={() => { currentPage <= 1 ? setCurrentPage(currentPage) : setCurrentPage(--currentPage) }}><TbArrowWaveLeftDown /></button>
+                                    <h1> {currentPage}</h1>
+                                    <button onClick={() => { filteredData.length < currentPage || currentPage === pageNumbers ? setCurrentPage(currentPage) : setCurrentPage(++currentPage) }}><TbArrowWaveRightUp /></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                ) : null}
+
+
+
+
                 <Modal title={"Add Games"} openModal={openModal} setOpenModal={setOpenModal}>
                     <div className="formWrap">
                         <div className="form-grid">
@@ -323,8 +451,8 @@ const Games = () => {
                 </Modal>
 
                 <Modal title={"Add Owner"} openModal={ownerModal} setOpenModal={setOwnerModal} >
-                
-                    <h1>Select Owner For <span style={{color:"var(--neon-green)"}}>{selectedGammeForOwner?.gamename.toUpperCase()}</span> </h1>
+
+                    <h1>Select Owner For <span style={{ color: "var(--neon-green)" }}>{selectedGammeForOwner?.gamename.toUpperCase()}</span> </h1>
                     <br /><br />
                     <AutoComplete onSelect={handleOwnerSelect} />
 
@@ -333,12 +461,12 @@ const Games = () => {
                 <Modal title={"Game Owner Details"} openModal={ownerDetailsModal} setOpenModal={setOwnerDetailsModal} >
 
                     <div className="owner-details">
-                        <img src={ownerDetails.profilepic} alt="avatar" width={150} height={150} style={{borderRadius:"8px"}} />
+                        <img src={ownerDetails?.profilepic} alt="avatar" width={150} height={150} style={{ borderRadius: "8px" }} />
                         <br /><br />
                         <h1>{ownerDetails?.fullname}</h1>
                         <br />
-                        <h3><BiLogoGmail/> <a style={{color:"var(--scclr)"}} href={`mailto:${ownerDetails?.email}`}>{ownerDetails?.email}</a></h3><br />
-                        <h3><BiSolidPhoneCall/> <a style={{color:"var(--scclr)"}} href={`tel:${ownerDetails?.phonenumber}`}> {ownerDetails?.phonenumber}</a></h3>
+                        <h3><BiLogoGmail /> <a style={{ color: "var(--scclr)" }} href={`mailto:${ownerDetails?.email}`}>{ownerDetails?.email}</a></h3><br />
+                        <h3><BiSolidPhoneCall /> <a style={{ color: "var(--scclr)" }} href={`tel:${ownerDetails?.phonenumber}`}> {ownerDetails?.phonenumber}</a></h3>
                     </div>
 
                 </Modal>

@@ -5,13 +5,13 @@
     .adminPanelWrap {
         width: 100%;
 
-        .filter{
+        .filter {
             width: 100%;
             display: flex;
             justify-content: end;
             padding: 10px 30px;
 
-            .addBtn{
+            .addBtn {
                 width: 35px;
                 height: 35px;
                 display: flex;
@@ -23,7 +23,7 @@
                 color: var(--scclr);
                 padding: 5px;
                 border-radius: 8px;
-                             
+
             }
         }
 
@@ -69,7 +69,7 @@
                 tbody {
                     width: 100%;
                     border: 1px solid rgba(128, 128, 128, 0.232);
-                    
+
                     tr {
                         width: 100%;
                         border: 1px solid rgba(128, 128, 128, 0.232);
@@ -94,6 +94,13 @@
 
                             .panelWeekWrap {
                                 width: 100%;
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+
+                                &.hilite {
+                                    color: red;
+                                }
 
                                 .left {
                                     width: 100%;
@@ -103,17 +110,21 @@
                                         width: 40px;
                                         height: 30px;
                                         font-size: 1em;
+                                        text-align: center;
                                     }
                                 }
 
                                 .mid {
                                     width: 100%;
+                                    font-size: 1.2em;
+                                    font-weight: 600;
 
 
                                     input {
                                         width: 40px;
                                         height: 30px;
                                         font-size: 1em;
+                                        text-align: center;
                                     }
                                 }
 
@@ -125,6 +136,7 @@
                                         width: 40px;
                                         height: 30px;
                                         font-size: 1em;
+                                        text-align: center;
                                     }
                                 }
 
@@ -144,20 +156,50 @@
                                     box-shadow: 0 2px 14px rgba(128, 128, 128, 0.308);
                                 }
                             }
+                            .actn-btn{
+                                border: none;
+                                outline: none;
+                                padding: 5px;
+                                border-radius: 3px;
+                                background: var(--prclr);
+                                color: var(--scclr);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                text-decoration: none;
+                                transition: 0.5s ease;
+                                &:hover{
+                                    scale: 1.05;
+                                    transition: 0.5s ease;
+                                }
+                            }
                         }
-                        
+
                     }
                 }
             }
         }
 
-        .formWrap{
+        .formWrap {
             overflow-y: hidden;
             overflow-x: auto;
 
-            .form-item{
+            .form-item {
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
 
-                button{
+                label {
+                    color: white;
+                    font-weight: 600;
+                }
+
+                input[type="date"]::-webkit-calendar-picker-indicator {
+                    filter: invert(1);
+                }
+
+                button {
                     width: 100%;
                     height: 45px;
                     padding: 10px;
@@ -168,12 +210,24 @@
                     font-size: 1em;
                     border-radius: 10px;
 
-                    &:hover{
+                    &:hover {
                         background: #cccccc13;
                     }
                 }
+
+                .hilit-box {
+                    padding: 8px;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    border: 1px solid var(--scclr);
+                    border-radius: 8px;
+                    gap: 15px;
+                    color: var(--scclr);
+                }
             }
-            .multi-item{
+
+            .multi-item {
                 width: 100%;
                 display: flex;
                 gap: 10px;
@@ -181,4 +235,3 @@
         }
     }
 }
-

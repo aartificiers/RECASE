@@ -15,20 +15,28 @@ import Navbar from '../../../Components/Navbar/Navbar';
 import { Helmet } from 'react-helmet';
 import { API } from '../../../Services/Api';
 import Marquee from 'react-fast-marquee';
+import { logoutUser } from '../../../Utils/commonutil';
 
 
 
 const Homepage = () => {
 
    const [luckyData, setLuckyData] = useState({});
-   const [addsData,setAdData]=useState([]);
-   const [guessingTable,setGuessingTable]=useState([]);
+   const [addsData, setAdData] = useState([]);
+   const [guessingTable, setGuessingTable] = useState([]);
+   const [jodiList,setJodiList]=useState([]);
+   const [panelList,setPanelList]=useState([]);
+   const [netWeekly,setNetWeekly]=useState([]);
+   
 
 
    useEffect(() => {
       fetchLuckyData();
       fetchAds();
       fetchGuessingTableData();
+      fetchAllJodis();
+      fetchAllPanel();
+      fetchNetweek();
    }, []);
 
    const fetchLuckyData = async () => {
@@ -40,21 +48,46 @@ const Homepage = () => {
    const fetchAds = async () => {
       const res = await API.getAds();
       if (res.isSuccess) {
-          setAdData(res.data.data);
+         setAdData(res.data.data);
       } else {
-          console.log("error fetching");
+         console.log("error fetching");
       }
-  }
-  const fetchGuessingTableData = async () => {
+   }
+   
+   const fetchGuessingTableData = async () => {
       const res = await API.getGuessings();
       if (res.isSuccess) {
-          setGuessingTable(res.data.data);
+         setGuessingTable(res.data.data);
+      } else {
+         console.log("error fetching");
+      }
+   }
+   const fetchAllJodis = async () => {
+      const res = await API.getAllJodis();
+      if (res.isSuccess) {
+         setJodiList(res.data.data);
+      } else {
+         console.log("error fetching");
+      }
+   }
+   const fetchAllPanel = async () => {
+      const res = await API.getAllPanel();
+      if (res.isSuccess) {
+         setPanelList(res.data.data);
+      } else {
+         console.log("error fetching");
+      }
+   }
+
+   const fetchNetweek=async()=>{
+      const res = await API.getNetweek();
+      if (res.isSuccess) {
+          setNetWeekly(res.data.data);
       } else {
           console.log("error fetching");
       }
   }
 
-  console.log(addsData[0]?.adContent);
 
 
    return (
@@ -143,9 +176,8 @@ const Homepage = () => {
 
                   {/* Netweekly*/}
 
-                  {netWeeklyData?.map((item, index) => {
+                  {netWeekly?.map((item, index) => {
                      return <NetWeekly key={index} title={item.title} content={item.content} />
-
                   })}
 
                   <Adds addContent={addsData[3]?.adContent} />
@@ -175,8 +207,8 @@ const Homepage = () => {
 
                   {/* Chart List */}
 
-                  <ChartList title={"SATTA MATKA JODI CHART"} data={jodiChartList} />
-                  <ChartList title={"MATKA PANNEL CHART"} data={pannelChartList} />
+                  <ChartList title={"SATTA MATKA JODI CHART"} data={jodiList} path={'/home/jodi/'} refer={'j'} />
+                  <ChartList title={"MATKA PANNEL CHART"} data={panelList} path={'/home/panel/'} refer={'p'} />
 
                   {/* FAQ Section */}
 

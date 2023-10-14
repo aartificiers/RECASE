@@ -41,7 +41,11 @@ const Login = () => {
             setLoading(false);
             setFormData(initialLoginData);
             dispatch(addUser({ isAuthenticated: true, user: response.data.data }));
-            navigate("/admin/dashboard/1254");
+            if(response.data.data.role==='BENJO'){
+                navigate("/admin/dashboard/dash");
+            }else{
+                navigate("/admin/dashboard/games");
+            }
         } else {
             setLoading(false);
             toast.error(response.errormsg,{

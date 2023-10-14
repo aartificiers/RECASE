@@ -2,22 +2,31 @@ import React, { useEffect, useState } from 'react';
 import './dash.scss';
 import { API } from '../../../../Services/Api';
 import DashHeader from '../../../../Components/AdminComponents/HeaderCompponent/DashHeader';
-import { FaDiceFive, FaEdit, FaSave } from 'react-icons/fa';
+import { FaDiceFive, FaEdit, FaPlus, FaSave } from 'react-icons/fa';
 import QuillEditor from '../../../../Components/List/Quill/QuillEditor';
-import { addsData, netWeeklyData, weeknumtableData } from '../../../../Constants/dummy';
-import { GiRollingDices } from 'react-icons/gi';
 import { toast } from 'react-toastify';
-import Spinner from '../../../../Components/Spinner/Spinner';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Modal from '../../../../Components/AdminComponents/modal/Modal';
 
+
+  const initialDaynightData={
+    title:"",
+    content:""
+  } 
 
 const Dash = () => {
+    const userInfo = useSelector(state => state.user);
+    const navigate = useNavigate();
+    const [createDaynightData,setCreateDayNightData]=useState(initialDaynightData);
     // Data Setting Variables
     // ===========================
     const [luckyNum, setLuckyNum] = useState({ shubhank: "", finalank: [] });
     const [ads, setAds] = useState([]);
     const [netWeekly, setNetWeekly] = useState([]);
-    const [dayNight, setDayNight] = useState([1, 2, 3, 4]);
+    const [dayNight, setDayNight] = useState([]);
     const [guessingTableData, setGuessingTableData] = useState([]);
+    const [openDaynightModal, setDayNightModal] = useState(false);
 
     // Update Data Variables 
     // ===========================
@@ -50,6 +59,10 @@ const Dash = () => {
 
         },]
     })
+    const [netWeekUpdatetitle, setNetWeekUpdatetitle] = useState("");
+    const [netWeekUpdatecontent, setNetWeekUpdatecontent] = useState("");
+    const [dayNighttitle, setDayNightTitle] = useState("");
+    const [dayNightContent, setDayNightContent] = useState("")
 
     // Editing Id Variables
     // ===========================
@@ -64,9 +77,12 @@ const Dash = () => {
     const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
+
         fetchLuckyNum();
         fetchAds();
         fetchGuessingTableData();
+        fetchNetweek();
+        fetchDayNight();
     }, []);
 
 
@@ -97,6 +113,22 @@ const Dash = () => {
             console.log("error fetching");
         }
     }
+    const fetchNetweek = async () => {
+        const res = await API.getNetweek();
+        if (res.isSuccess) {
+            setNetWeekly(res.data.data);
+        } else {
+            console.log("error fetching");
+        }
+    }
+    const fetchDayNight = async () => {
+        const res = await API.getDayNight();
+        if (res.isSuccess) {
+            setDayNight(res.data.data);
+        } else {
+            console.log("error fetching");
+        }
+    }
 
 
     // Handle Input Change Functions
@@ -123,15 +155,19 @@ const Dash = () => {
 
     }
     const handleQuilChange = (adContent) => {
-
         setUpdateAds({ adContent });
-        console.log(adContent);
     }
     const handleGuessChange = (event, index) => {
         const { name, value } = event.target;
         const updatedData = { ...guessUpdateData };
         updatedData.values[index][name] = value && !isNaN(value) ? parseInt(value) : '';
         setGuessUpdateData(updatedData);
+    }
+    const handleNetWeekContentChange = (content) => {
+        setNetWeekUpdatecontent(content);
+    }
+    const handleDayNightChange = (val) => {
+        setDayNightContent(val);
     }
 
 
@@ -180,6 +216,42 @@ const Dash = () => {
         }
 
     }
+    const handleNetWeekSave = async (id) => {
+        const resp = await API.editNetweek({ id, updateData: { title: netWeekUpdatetitle, content: netWeekUpdatecontent } });
+
+        if (resp.isSuccess) {
+            toast.success("Net Week Updated Successfully");
+            setNetEdit(null);
+            fetchNetweek();
+            setNetWeekUpdatecontent("");
+            setNetWeekUpdatetitle("");
+        } else {
+            toast.error("Net Weekly Updation Failed");
+        }
+
+    }
+    const handleDayNightSave = async (id) => {
+        const resp = await API.editDayNight({ id, updateData: { title: dayNighttitle, content: dayNightContent } });
+
+        if (resp.isSuccess) {
+            toast.success("Day Night Updated Successfully");
+            setDnGuessingEdit(null);
+            fetchDayNight();
+            setDayNightContent("");
+            setDayNightTitle("");
+        } else {
+            toast.error("Day Night Updation Failed");
+        }
+
+    }
+
+
+
+    // Create Functions
+
+    const createDayNight=async ()=>{
+
+    }
 
 
     return (
@@ -225,15 +297,14 @@ const Dash = () => {
                 <div className="netweekly-edit">
                     <h1 className="sec-title">Net Weekly</h1>
                     <div className="net-week-wrap">
-                        {netWeeklyData.map((item, indx) => {
+                        {netWeekly?.map((item, indx) => {
                             return (
                                 <div className="net-card" key={indx}>
-                                    <div className="net-title">{netEdit == indx ? <input style={{ width: "100%", height: "35px", fontSize: "1.2em" }} type="text" value={"hello"} /> : "hello"}</div>
-                                    {netEdit === indx ? <QuillEditor value={"duibucucdh"} onChange={() => console.log("dftydc")} /> : <div className="netcontent" dangerouslySetInnerHTML={{ __html: "<p>Hello</p>" }}></div>}
+                                    <div className="net-title">{netEdit === item._id ? <input style={{ width: "100%", height: "35px", fontSize: "1.2em" }} type="text" onChange={(e) => setNetWeekUpdatetitle(e.target.value)} value={netWeekUpdatetitle} /> : item.title}</div>
+                                    {netEdit === item._id ? <QuillEditor value={netWeekUpdatecontent} onChange={handleNetWeekContentChange} /> : <div className="netcontent" dangerouslySetInnerHTML={{ __html: item.content }}></div>}
                                     <div className="btns-cont">
-                                        {netEdit === indx ? <button className='btn btn__primary' onClick={() => setNetEdit(null)} ><FaSave /></button> : <button className='btn btn__primary' onClick={() => setNetEdit(indx)} ><FaEdit /></button>}
+                                        {netEdit === item._id ? <button className='btn btn__primary' onClick={() => handleNetWeekSave(item._id)} ><FaSave /></button> : <button className='btn btn__primary' onClick={() => { setNetWeekUpdatetitle(item.title); setNetWeekUpdatecontent(item.content); setNetEdit(item._id) }} ><FaEdit /></button>}
                                     </div>
-
                                 </div>
                             )
                         })}
@@ -241,16 +312,16 @@ const Dash = () => {
                 </div>
 
                 <div className="daynight-guessing">
-                    <h1 className="sec-title">Day Night Guessing</h1>
+                    <h1 className="sec-title">Day Night Guessing <button className='btn'><FaPlus /></button></h1>
                     <div className="dynt-grid">
                         {dayNight.length > 0 ? dayNight.map((item, index) => {
                             return (
                                 <div className="dynt-item">
-                                    <div className="ttl">Milan MOrning</div>
-                                    {dnGuessingEdit === index ? <QuillEditor /> : <div className="guess-cont" >dgsgdssdsdsdsdgsd vsdgsdgsd bsgsd sdgsdgs fbsff df df d df df df df </div>}
-                                    <div className="btn-cont ">
-                                        {dnGuessingEdit === index ? <button className='btn btn__primary' onClick={() => setDnGuessingEdit(null)} ><FaSave /></button> : <button className='btn btn__primary' onClick={() => setDnGuessingEdit(index)}><FaEdit /></button>}
+                                    {dnGuessingEdit === item._id ? <input value={dayNighttitle} onChange={(e) => setDayNightTitle(e.target.value)} /> : <div className="ttl">{item.title}</div>}
 
+                                    {dnGuessingEdit === item._id ? <QuillEditor value={dayNightContent} onChange={handleDayNightChange} /> : <div className="guess-cont" dangerouslySetInnerHTML={{ __html: item.content }} />}
+                                    <div className="btn-cont ">
+                                        {dnGuessingEdit === item._id ? <button className='btn btn__primary' onClick={() => handleDayNightSave(item._id)} ><FaSave /></button> : <button className='btn btn__primary' onClick={() => { setDayNightTitle(item.title); setDayNightContent(item.content); setDnGuessingEdit(item._id) }}><FaEdit /></button>}
                                     </div>
                                 </div>
                             )
@@ -311,6 +382,25 @@ const Dash = () => {
                         })}
                     </div>
                 </div>
+
+                {openDaynightModal &&
+                    <Modal title={"Add Day Night"} openModal={openDaynightModal} setOpenModal={setDayNightModal} >
+                        <div className="formWrap">
+                            <div className="form-grid">
+                                <div className="form-item">
+                                    <input type="text" className='cust-input' value={createDaynightData.title} onChange={handleInputChange} placeholder='Title' name='title' />
+                                </div>
+                                <div className="form-item">
+                                    <QuillEditor   value={createDaynightData.content}  />
+                                </div>
+                                <div className="form-item">
+                                    <button onClick={handleCreateGame}>Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </Modal>
+                }
 
 
             </div>

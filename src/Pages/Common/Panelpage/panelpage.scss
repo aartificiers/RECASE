@@ -1,0 +1,176 @@
+.pannel{
+    width: 100%;
+    margin: 20px 0;
+    // padding: 25px;
+
+    .pannelWrap{
+        width: 100%;
+
+        .pannelTable{
+            width: 100%;
+        
+            h1{
+                text-align: center;
+                padding: 20px 0;
+            }
+        
+            table {
+                // border: 1px solid #fff;
+                width: 100%;
+                border-collapse: collapse;
+
+                thead {
+                    width: 100%;
+                    background: var(--primary-color);
+                    
+                    tr{
+                        width: 100%;
+                        
+
+                        th{
+                            text-align: center;
+                            padding: 10px ;
+                            color: var(--neon-color);
+                            text-transform: uppercase;
+                            border-left: 1px solid #50ff5f4a;
+                            border-right: 1px solid #50ff5f4a;
+                        }
+                    }
+                }
+                
+                tbody{
+                    width: 100%;
+
+                    tr {
+                        width: 100%;
+                        border-top: 1px solid #ffffff4a;
+                        border-bottom: 1px solid #ffffff4a;
+
+                        td{
+                            padding: 10px;
+                            border-left: 1px solid #50ff5f4a;
+                            border-right: 1px solid #50ff5f4a;
+
+                            .dateWrap{
+                                width: 100%;
+                                text-align: center;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 10px;
+                                color: #fff01f;
+
+    
+                                h3{
+                                    font-size: 1em;
+                                }
+    
+                            }
+    
+                        }
+
+                        .week{
+                                                      
+    
+                            .weekWrap{
+                                width: 100%;
+                                display: flex;   
+                                justify-content: space-between;
+                                align-items: center;
+
+                                .left{
+                                    text-orientation: upright;
+                                    writing-mode: vertical-lr;
+                                    
+                                    &.hilite{
+                                        color: #ff3131;
+                                    }
+                                }
+
+                                .mid{
+                                    font-size: 1.8em;
+                                    font-weight: 600;
+                                    color: #fef9a6;
+
+                                    &.hilite{
+                                        color: #ff3131;
+                                    }
+                                }
+
+                                .right{
+                                    
+                                    text-orientation: upright;
+                                    writing-mode: vertical-lr;
+
+                                    &.hilite{
+                                        color: #ff3131;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                   
+                }
+
+            }
+        }
+    }
+}
+
+@media screen and (max-width:991px) {
+    .pannel{
+
+        .pannelWrap{
+            .pannelTable{
+                h1{
+                    font-size:1em;
+
+                }
+                table{
+
+                    thead{
+
+                        tr{
+                            th{
+                                padding: 4px;
+                                font-size: .8em;
+                            }
+                        }
+                    }
+                    tbody{
+                        tr{
+                            td{
+                                padding: 3px;
+                                .dateWrap{
+                                    gap: 3px;
+                                    h3{
+                                        font-size: .5em;
+                                    }
+                                }
+
+                            }
+                            .week{
+                                .weekWrap{
+                                    .left{
+                                        font-size: .7em;
+                                    }
+                                    .right{
+                                        font-size: .7em;
+                                    }
+                                    .mid{
+                                        font-size: 1em;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    
+}

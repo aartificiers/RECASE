@@ -102,6 +102,7 @@
 
                     tr {
                         background: #d4bf974e;
+                        margin-bottom: 10px;
 
                         &:nth-child(even) {
                             background: #d4bf977b;
@@ -114,6 +115,12 @@
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                cursor: pointer;
+                                transition: 0.5s ease;
+                                &:hover{
+                                    scale: 1.05;
+                                    transition: 0.5s ease;
+                                }
                             }
 
                             .btns {
@@ -135,6 +142,7 @@
                             }
                             .actn-btn{
                                 border: none;
+                                min-width: 70px;
                                 outline: none;
                                 padding: 5px;
                                 border-radius: 3px;
@@ -143,6 +151,12 @@
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                text-decoration: none;
+                                transition: 0.5s ease;
+                                &:hover{
+                                    scale: 1.05;
+                                    transition: 0.5s ease;
+                                }
                             }
                         }
                     }

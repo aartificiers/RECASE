@@ -8,7 +8,7 @@
         .filter{
             width: 100%;
             display: flex;
-            justify-content: end;
+            justify-content: space-between;
             padding: 10px 30px;
 
             .addBtn{
@@ -76,15 +76,24 @@
 
                         td {
                             padding: 10px 20px;
+                            text-align: center;
                             // border: 1px solid var(--prclr);
 
                             .weekWrap {
                                 width: 100%;
+                                font-weight: 600;
 
-                                input {
+                                input[type=text] {
                                     width: 40px;
                                     height: 40px;
+                                    text-align: center;
+                                    border: none;
+                                    outline: none;
+                                    border-bottom: 2px solid var(--prclr);
+                                }
 
+                                &.hilite{
+                                    color:#ff3131 ;
                                 }
                             }
 
@@ -102,6 +111,23 @@
                                     box-shadow: 0 2px 14px rgba(128, 128, 128, 0.308);
                                 }
                             }
+                            .actn-btn{
+                                border: none;
+                                outline: none;
+                                padding: 5px;
+                                border-radius: 3px;
+                                background: var(--prclr);
+                                color: var(--scclr);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                text-decoration: none;
+                                transition: 0.5s ease;
+                                &:hover{
+                                    scale: 1.05;
+                                    transition: 0.5s ease;
+                                }
+                            }
                         }
                     }
                 }
@@ -114,6 +140,12 @@
             overflow-x: auto;
 
             .form-item{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                border: 1px solid rgba(187, 187, 187, 0.462);
+                border-radius: 8px;
+                padding: 5px;
 
                 button{
                     width: 100%;
@@ -129,6 +161,16 @@
                     &:hover{
                         background: #cccccc13;
                     }
+                }
+                .hilit-box{
+                    padding: 8px;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    border: 1px solid var(--scclr);
+                    border-radius: 8px;
+                    gap: 15px;
+                    color: var(--scclr);
                 }
             }
             // .multi-item{

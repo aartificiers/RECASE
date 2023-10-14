@@ -1,0 +1,32 @@
+.denied{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    h1{
+        font-size: 3em;
+        color: rgb(255, 90, 90);
+        padding: 10px 0;
+        border-bottom: 3px solid rgb(255, 90, 90);
+    }
+
+    .anim-arrow{
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        .arr-anim{
+            font-size: 2em;
+            animation: lftrow 1s  infinite alternate-reverse ease;
+        }
+    }
+}
+
+@keyframes lftrow {
+    0%{
+        translate: -15px 0 0;
+    }
+    100%{
+        translate: 0px 0 0;
+
+    }
+    
+}

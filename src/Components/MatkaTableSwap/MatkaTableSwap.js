@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './matkatable.scss';
 import { RiRefreshLine } from 'react-icons/ri';
 import { fastSatkaResult } from '../../Constants/dummy';
+import { API } from '../../Services/Api';
+import { Link } from 'react-router-dom';
 
 const MatkaTableSwap = () => {
+    const [gamesResultData,setGamesResultData]=useState([]);
     const [windowDimensions, setWindowDimensions] = useState({
         width: 1536,
         height: 0,
     });
 
     useEffect(() => {
+        fetchGameResults();
         function updateWindowDimensions() {
             setWindowDimensions({
                 width: typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -32,6 +36,14 @@ const MatkaTableSwap = () => {
         };
 
     }, []);
+
+    const fetchGameResults = async () => {
+        const response = await API.getAllGamesWithoutLimit();
+        if (response.isSuccess) {
+            console.log("response",response);
+           setGamesResultData(response.data.data);
+        }
+     }
     return (
         <div className='matkaTableSwap'>
             <div className="matkaswapwrap">
@@ -40,7 +52,7 @@ const MatkaTableSwap = () => {
                     <div className='matkalist'>
                         <div className="matkalistwrap">
                             <ul>
-                                {fastSatkaResult.map((item, index) => {
+                                {gamesResultData?.map((item, index) => {
                                     return (
                                         <li key={index}>
                                             <div className='liveTop'>
@@ -53,15 +65,15 @@ const MatkaTableSwap = () => {
                                             </div>
 
                                             <div className="liveMid">
-                                                <h1> {item.gamename}</h1>
-                                                <h3> {item.result}</h3>
+                                                <h1> {item.gamename.toUpperCase()}</h1>
+                                                <h3> {item.result.toUpperCase()}</h3>
 
                                             </div>
 
                                             <div className="liveBottom">
-                                                <div className='list-btns'><button>JODI</button></div>
-                                                <div className="time"> {item.time} </div>
-                                                <div className='list-btns'><button>PANNEL</button></div>
+                                                <div className='list-btns'><Link to={'/home/jodi/'+item.jodi_id}>JODI</Link></div>
+                                                <div className="time"> {item.time.toUpperCase()} </div>
+                                                <div className='list-btns'><Link to={'/home/panel/'+item.panel_id}>PANEL</Link></div>
                                             </div>
                                         </li>
                                     )
@@ -89,7 +101,7 @@ const MatkaTableSwap = () => {
                                     </thead>
                                     <tbody>
 
-                                        {fastSatkaResult.map((item, index) => {
+                                        {gamesResultData?.map((item, index) => {
 
                                             return (
                                                 <tr key={index}>
@@ -101,9 +113,9 @@ const MatkaTableSwap = () => {
                                                         }) : null}
                                                         {item.gamename}
                                                     </td>
-                                                    <td><button>Jodi</button></td>
+                                                    <td><Link to={'/home/jodi/'+item.jodi_id}>JODI</Link></td>
                                                     <td>{item.result}</td>
-                                                    <td><button>Pannel</button></td>
+                                                    <td><Link to={'/home/panel/'+item.panel_id}>PANEL</Link></td>
                                                     <td>{item.time}</td>
                                                 </tr>
                                             )

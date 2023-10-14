@@ -45,6 +45,16 @@ export const SERVICE_URLS = {
     addAds: { url: "/ad/create", method: "POST" },
     editAds: { url: "/ad/update", method: "POST" },
 
+    // api for netweek
+    getNetweek: { url: "/netweek/get", method: "GET" },
+    addNetweek: { url: "/netweek/create", method: "POST" },
+    editNetweek: { url: "/netweek/update", method: "POST" },
+
+    // api for daynight
+    getDayNight: { url: "/daynight/get", method: "GET" },
+    addDayNight: { url: "/daynight/create", method: "POST" },
+    editDayNight: { url: "/daynight/update", method: "POST" },
+
     // api for guessingtable
     getGuessings:{ url: "/guessing/get", method: "GET" },
     createGuessings: { url: "/guessing/create", method: "POST" },
@@ -52,9 +62,27 @@ export const SERVICE_URLS = {
 
     // api for games
     getAllGames:{ url: "/game/all", method: "GET" ,params: true },
+    getAllGamesWithoutLimit:{ url: "/game/allwf", method: "GET" },
+    getAllGamesWithLive:{ url: "/game/allwli", method: "GET" },
+    getAllDeletedGames:{ url: "/game/all/deleted", method: "GET" },
     getOwnersGames:{url:"/game/owner",method:"GET",params: true},
     createGame:{url:"/game/create",method:"POST"},
-    updateGame:{url:"/game/update",method:"POST"}
+    updateGame:{url:"/game/update",method:"POST"},
+
+
+    // api For Jodi
+    getJodiById:{url:'/jodi/get',method:"GET",params:true},
+    getAllJodis:{url:'/jodi/all/get',method:"GET"},
+    createJodi:{url:'/jodi/create',method:"POST"},
+    updateJodi:{url:'/jodi/update',method:"POST"},
+    deleteJodi:{url:'/jodi/delete',method:'POST'},
+    
+    // api For Jodi
+    getPanelById:{url:'/panel/get',method:"GET",params:true},
+    getAllPanel:{url:'/panel/all/get',method:"GET"},
+    createPanel:{url:'/panel/create',method:"POST"},
+    updatePanel:{url:'/panel/update',method:"POST"},
+    deletePanel:{url:'/panel/delete',method:'POST'},
     
 }
 
