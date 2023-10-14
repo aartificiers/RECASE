@@ -10,8 +10,8 @@ import { getType } from '../Utils/commonutil';
 //                                          |+
 
 // const API_URL = 'https://api.laqshya2k23.tech';
-// const API_URL = 'https://caseserver.onrender.com';
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://caseserver.onrender.com';
+// const API_URL = 'http://localhost:8000';
 const axiosInstance = axios.create({
     baseURL: API_URL,
     timeout: 10000,
