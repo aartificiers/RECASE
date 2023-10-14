@@ -27,6 +27,7 @@ const Homepage = () => {
    const [jodiList,setJodiList]=useState([]);
    const [panelList,setPanelList]=useState([]);
    const [netWeekly,setNetWeekly]=useState([]);
+   const [dayNight,setDayNight]=useState([]);
    
 
 
@@ -37,6 +38,7 @@ const Homepage = () => {
       fetchAllJodis();
       fetchAllPanel();
       fetchNetweek();
+      fetchDayNight();
    }, []);
 
    const fetchLuckyData = async () => {
@@ -87,6 +89,15 @@ const Homepage = () => {
           console.log("error fetching");
       }
   }
+
+  const fetchDayNight = async () => {
+   const res = await API.getDayNight();
+   if (res.isSuccess) {
+       setDayNight(res.data.data);
+   } else {
+       console.log("error fetching");
+   }
+}
 
 
 
@@ -193,7 +204,7 @@ const Homepage = () => {
                         {/* <GridResult/> */}
                         {/* <GridResult title={"Animesh"} content={"<P>Nikita</P>"}/> */}
 
-                        {gridResultData?.map((itm, ind) => {
+                        {dayNight?.map((itm, ind) => {
                            return <GridResult key={ind} title={itm.title} content={itm.content} />
                         })}
 
