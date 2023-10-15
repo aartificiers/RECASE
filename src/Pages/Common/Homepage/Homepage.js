@@ -146,7 +146,7 @@ const Homepage = () => {
                               <div className="marq-wrap">
                                  <div className="marquee">
                                     {luckyData.finalank?.length > 0 ? luckyData.finalank.map((item, indx) => {
-                                       return <div key={indx}>{item}</div>
+                                       return <div className='marq-text' key={indx}>{item}</div>
                                     }) : null}
                                  </div>
                               </div>

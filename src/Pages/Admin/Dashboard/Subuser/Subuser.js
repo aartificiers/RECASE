@@ -48,7 +48,7 @@ const Subuser = () => {
     setIsLoading(true);
     const response = await API.getSubAdmins({ limit: itemPerPage, page: currentPage });
     if (response.isSuccess) {
-      
+
       setTableData(response.data.data || []);
       setPageNumbers(Math.ceil(response.data.totalCount / itemPerPage));
       setIsLoading(false);
@@ -192,7 +192,7 @@ const Subuser = () => {
                     <td>{data.email}</td>
                     <td>{data.phonenumber}</td>
                     <td>{data.role}</td>
-                    <td><div style={{display:"flex",justifyContent:"center",alignItems:"center"}}><button onClick={()=>handleDeleteAdmin(data._id)} className='actn-btn'><FaTrash/></button></div></td>
+                    <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}><button onClick={() => handleDeleteAdmin(data._id)} className='actn-btn'><FaTrash /></button></div></td>
                   </tr>
                 )
               }) : (
@@ -204,24 +204,21 @@ const Subuser = () => {
                   <td>At</td>
                   <td>This</td>
                   <td>Moment</td>
-                  
+
                 </tr>
               )}
             </tbody>
           </table>
-
-          <div className="table-config">
-            <div className="table-config-wrap">
-              <div className="pagination-btn">
-                <p>Pagination</p>
-                <button onClick={() => { currentPage <= 1 ? setCurrentPage(currentPage) : setCurrentPage(--currentPage) }}><TbArrowWaveLeftDown /></button>
-                <h1> {currentPage}</h1>
-                <button onClick={() => { filteredData.length < currentPage || currentPage === pageNumbers ? setCurrentPage(currentPage) : setCurrentPage(++currentPage) }}><TbArrowWaveRightUp /></button>
-              </div>
+        </div>
+        <div className="table-config">
+          <div className="table-config-wrap">
+            <div className="pagination-btn">
+              <p>Pagination</p>
+              <button onClick={() => { currentPage <= 1 ? setCurrentPage(currentPage) : setCurrentPage(--currentPage) }}><TbArrowWaveLeftDown /></button>
+              <h1> {currentPage}</h1>
+              <button onClick={() => { filteredData.length < currentPage || currentPage === pageNumbers ? setCurrentPage(currentPage) : setCurrentPage(++currentPage) }}><TbArrowWaveRightUp /></button>
             </div>
           </div>
-
-
         </div>
         <Modal title={"Add User"} openModal={openModal} setOpenModal={setOpenModal}>
           <div className="formWrap">
@@ -270,7 +267,7 @@ const Subuser = () => {
               </div>
 
               <div className="form-item">
-                <button onClick={handleSignup}>{isLoading ? <Spinner/> : "SUBMIT"}</button>
+                <button onClick={handleSignup}>{isLoading ? <Spinner /> : "SUBMIT"}</button>
               </div>
             </div>
           </div>

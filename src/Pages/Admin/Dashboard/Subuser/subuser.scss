@@ -49,7 +49,6 @@
             }
 
             .barRight {
-                width: 5%;
                 display: flex;
                 justify-content: flex-end;
 
@@ -90,6 +89,7 @@
             width: 100%;
             padding: 20px;
             border-radius: 24px;
+            overflow-x: auto;
 
             table {
                 width: 100%;
@@ -165,42 +165,44 @@
                 }
             }
 
-            .table-config {
-                width: 100%;
+            
+        }
+        .table-config {
+            width: 100%;
+            margin: 15px 0;
 
-                .table-config-wrap {
+            .table-config-wrap {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                .pagination-btn {
                     width: 100%;
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
+                    gap: 10px;
+                    margin-right: 25px;
 
-                    .pagination-btn {
-                        width: 100%;
+                    button {
+                        width: 25px;
+                        height: 25px;
                         display: flex;
-                        justify-content: flex-end;
+                        justify-content: center;
                         align-items: center;
-                        gap: 10px;
-                        margin-right: 25px;
-
-                        button {
-                            width: 25px;
-                            height: 25px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            outline: none;
-                            border: none;
-                            background: var(--prclr);
-                            color: var(--scclr);
-                            border-radius: 3px;
-
-                        }
-
-                        h1 {
-                            font-size: 25px;
-                        }
+                        outline: none;
+                        border: none;
+                        background: var(--prclr);
+                        color: var(--scclr);
+                        border-radius: 3px;
 
                     }
+
+                    h1 {
+                        font-size: 25px;
+                    }
+
                 }
             }
         }
@@ -271,4 +273,27 @@
 
 .css-i4bv87-MuiSvgIcon-root path {
     stroke: #fff;
+}
+
+
+
+@media screen and  (max-width:990px) {
+    .subuser{
+        .subuserWrap{
+            .filterActionBar{
+                .barLeft{
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                }
+
+            }
+            .tableWrap{
+                overflow-x: auto;
+                .table-config{
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

@@ -151,22 +151,22 @@ const Games = () => {
 
     const handleDeleteGame = async (id) => {
         if (window.confirm("Do You Really Want To Delete This Game") === true) {
-            const response = await API.updateGame({ id,updateData:{isDeleted:true}});
+            const response = await API.updateGame({ id, updateData: { isDeleted: true } });
             if (response.isSuccess) {
                 toast.success("Deleted Successfully");
                 setToggle(!toggle);
-            }else{
+            } else {
                 toast.error("Deletion Failed !!");
             }
         }
     }
     const handleUnhideGame = async (id) => {
         if (window.confirm("Do You Really Want To Take Back This Game") === true) {
-            const response = await API.updateGame({ id,updateData:{isDeleted:false}});
+            const response = await API.updateGame({ id, updateData: { isDeleted: false } });
             if (response.isSuccess) {
                 toast.success("Taken Game Back Successfully");
                 setToggle(!toggle);
-            }else{
+            } else {
                 toast.error("Unhide failed !!");
             }
         }
@@ -324,7 +324,7 @@ const Games = () => {
                                         <td>{editingId === data._id && userInfo.user.role === "BENJO" ? <input type='checkbox' checked={gameUpdateData.islive} onChange={handleUpdateIsLiveChange} /> : data.islive ? <div className='flashing-dot'></div> : "NO"}</td>
                                         <td><Link className='actn-btn' to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
                                         <td><Link className='actn-btn' to={`/admin/dashboard/panel/${data.panel_id}`}>Panel</Link></td>
-                                        <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>{editingId === data._id ? <button className='actn-btn' onClick={() => handleUpdateGame(data._id)}><FaSave /></button> : <button className='actn-btn' onClick={() => { setGameUpdateData({ gamename: data.gamename, gametype: data.gametype, result: data.result, time: data.time, hilite: data.hilite, islive:data.islive }); setEditingId(data._id) }}><FaEdit /></button>} {userInfo.user.role === "BENJO" && <button onClick={() => handleDeleteGame(data._id)} className='actn-btn'><FaTrash /></button>} </div></td>
+                                        <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>{editingId === data._id ? <button className='actn-btn' onClick={() => handleUpdateGame(data._id)}><FaSave /></button> : <button className='actn-btn' onClick={() => { setGameUpdateData({ gamename: data.gamename, gametype: data.gametype, result: data.result, time: data.time, hilite: data.hilite, islive: data.islive }); setEditingId(data._id) }}><FaEdit /></button>} {userInfo.user.role === "BENJO" && <button onClick={() => handleDeleteGame(data._id)} className='actn-btn'><FaTrash /></button>} </div></td>
                                     </tr>
                                 )
                             }) : (
@@ -341,17 +341,17 @@ const Games = () => {
                         </tbody>
                     </table>
 
-                    <div className="table-config">
-                        <div className="table-config-wrap">
-                            <div className="pagination-btn">
-                                <p>Pagination</p>
-                                <button onClick={() => { currentPage <= 1 ? setCurrentPage(currentPage) : setCurrentPage(--currentPage) }}><TbArrowWaveLeftDown /></button>
-                                <h1> {currentPage}</h1>
-                                <button onClick={() => { filteredData.length < currentPage || currentPage === pageNumbers ? setCurrentPage(currentPage) : setCurrentPage(++currentPage) }}><TbArrowWaveRightUp /></button>
-                            </div>
+
+                </div>
+                <div className="table-config">
+                    <div className="table-config-wrap">
+                        <div className="pagination-btn">
+                            <p>Pagination</p>
+                            <button onClick={() => { currentPage <= 1 ? setCurrentPage(currentPage) : setCurrentPage(--currentPage) }}><TbArrowWaveLeftDown /></button>
+                            <h1> {currentPage}</h1>
+                            <button onClick={() => { filteredData.length < currentPage || currentPage === pageNumbers ? setCurrentPage(currentPage) : setCurrentPage(++currentPage) }}><TbArrowWaveRightUp /></button>
                         </div>
                     </div>
-
                 </div>
 
 
@@ -389,7 +389,7 @@ const Games = () => {
                                             <td>{data.islive ? <div className='flashing-dot'></div> : "NO"}</td>
                                             <td><Link className='actn-btn' to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
                                             <td><Link className='actn-btn' to={`/admin/dashboard/panel/${data.jodi_id}`}>Panel</Link></td>
-                                            <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}><button className='actn-btn' onClick={()=>handleUnhideGame(data._id)}><FaEye/></button> </div></td>
+                                            <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}><button className='actn-btn' onClick={() => handleUnhideGame(data._id)}><FaEye /></button> </div></td>
                                         </tr>
                                     )
                                 }) : (
@@ -405,18 +405,6 @@ const Games = () => {
                                 )}
                             </tbody>
                         </table>
-
-                        <div className="table-config">
-                            <div className="table-config-wrap">
-                                <div className="pagination-btn">
-                                    <p>Pagination</p>
-                                    <button onClick={() => { currentPage <= 1 ? setCurrentPage(currentPage) : setCurrentPage(--currentPage) }}><TbArrowWaveLeftDown /></button>
-                                    <h1> {currentPage}</h1>
-                                    <button onClick={() => { filteredData.length < currentPage || currentPage === pageNumbers ? setCurrentPage(currentPage) : setCurrentPage(++currentPage) }}><TbArrowWaveRightUp /></button>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                 ) : null}

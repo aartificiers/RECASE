@@ -3,11 +3,9 @@ import './layout.scss';
 import { PiDotsSixVerticalBold } from 'react-icons/pi';
 import { BiSolidDashboard } from 'react-icons/bi';
 import { IoGameController } from 'react-icons/io5';
-import { VscLayoutPanelCenter } from 'react-icons/vsc';
 import { IoMdExit } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
-import { BsFillPauseFill } from 'react-icons/bs';
 import { logoutUser } from '../../../../Utils/commonutil';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../../Store/Slices/userSlice';
@@ -89,4 +87,4 @@ const Layout = () => {
   )
 }
 
-export default Layout
+export default Layout;

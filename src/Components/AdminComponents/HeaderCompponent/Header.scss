@@ -9,7 +9,6 @@
         padding: 10px 30px;
         align-items: center;
 
-
         .title {
             font-size: 2.5em;
             color: var(--prclr);
@@ -48,6 +47,83 @@
                 align-items: center;
             }
 
+        }
+        .nav-btn{
+            display: none;
+            button{
+                border: none;
+                outline: none;
+                font-size: 1.2em;
+            }
+        }
+        .bottom-navigation{
+            padding: 15px;
+            position: absolute;
+            display: none;
+            bottom: 0;
+            right: 0;
+            z-index: 5;
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
+            .prof-det{
+                width: 100%;
+                display: flex;
+                gap: 15px;
+                color: var(--scclr);
+                align-items: center;
+                margin: 10px 0;
+            }
+            .bot-nav-links{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 20px;
+                .link{
+                    a{
+                        text-decoration: none;
+                        padding: 6px;
+                        background: var(--scclr);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: var(--prclr);
+                        border-radius: 3px;
+                    }
+                }
+            }
+        }
+    }
+}
+@keyframes fadeInLeft {
+    0% {
+       opacity: 0;
+       transform: translateX(-20px);
+    }
+    100% {
+       opacity: 1;
+       transform: translateX(0);
+    }
+ }   
+@media screen and  (max-width:990px) {
+    .admin-header{
+        .headerWrap{
+            padding: 10px;
+            .title{
+                font-size: 1.5em;
+            }
+            .searchbar{
+                display: none;
+            }
+            .nav-btn{
+                display: block;
+            }
+            .bottom-navigation{
+                display: block;
+            }
+            
         }
     }
 }
