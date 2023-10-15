@@ -1,6 +1,6 @@
 .admin-header {
     width: 100%;
-    
+
 
     .headerWrap {
         width: 100%;
@@ -48,15 +48,18 @@
             }
 
         }
-        .nav-btn{
+
+        .nav-btn {
             display: none;
-            button{
+
+            button {
                 border: none;
                 outline: none;
                 font-size: 1.2em;
             }
         }
-        .bottom-navigation{
+
+        .bottom-navigation {
             padding: 15px;
             position: absolute;
             display: none;
@@ -65,7 +68,8 @@
             z-index: 5;
             border-top-right-radius: 8px;
             border-top-left-radius: 8px;
-            .prof-det{
+
+            .prof-det {
                 width: 100%;
                 display: flex;
                 gap: 15px;
@@ -73,7 +77,8 @@
                 align-items: center;
                 margin: 10px 0;
             }
-            .bot-nav-links{
+
+            .bot-nav-links {
                 width: 100%;
                 height: 100%;
                 display: flex;
@@ -81,15 +86,62 @@
                 justify-content: flex-end;
                 align-items: center;
                 gap: 20px;
-                .link{
-                    a{
+
+                .collapsible {
+                    display: flex;
+                    padding: 5px;
+                    height: 0px;
+                    overflow: hidden;
+                    flex-direction: column;
+                    justify-content:space-between;
+                    align-items: center;
+                    gap: 20px;
+                    transition: 0.5s ease;
+                    background: var(--scclr);
+                    visibility: hidden;
+                    border-radius: 3px;
+
+                    .link {
+                        visibility: hidden;
+                        transition: 0.5s ease;
+
+                    }
+
+                    &.active {
+                        height: 230px;
+                        transition: 0.5s ease;
+                        visibility: visible;
+
+                        .link {
+                            visibility: visible;
+                            transition: 0.5s ease;
+
+                        }
+                    }
+                }
+
+                .link {
+                    a {
                         text-decoration: none;
                         padding: 6px;
-                        background: var(--scclr);
+                        background: var(--prclr);
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        color: var(--prclr);
+                        color: var(--scclr);
+                        border-radius: 3px;
+                    }
+
+                    button {
+                        text-decoration: none;
+                        border: none;
+                        outline: none;
+                        padding: 6px;
+                        background: var(--prclr);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: var(--scclr);
                         border-radius: 3px;
                     }
                 }
@@ -97,33 +149,40 @@
         }
     }
 }
+
 @keyframes fadeInLeft {
     0% {
-       opacity: 0;
-       transform: translateX(-20px);
+        opacity: 0;
+        transform: translateX(-20px);
     }
+
     100% {
-       opacity: 1;
-       transform: translateX(0);
+        opacity: 1;
+        transform: translateX(0);
     }
- }   
-@media screen and  (max-width:990px) {
-    .admin-header{
-        .headerWrap{
+}
+
+@media screen and (max-width:990px) {
+    .admin-header {
+        .headerWrap {
             padding: 10px;
-            .title{
+
+            .title {
                 font-size: 1.5em;
             }
-            .searchbar{
+
+            .searchbar {
                 display: none;
             }
-            .nav-btn{
+
+            .nav-btn {
                 display: block;
             }
-            .bottom-navigation{
+
+            .bottom-navigation {
                 display: block;
             }
-            
+
         }
     }
 }
