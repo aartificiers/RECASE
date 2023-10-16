@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './dash.scss';
 import { API } from '../../../../Services/Api';
 import DashHeader from '../../../../Components/AdminComponents/HeaderCompponent/DashHeader';
-import { FaDiceFive, FaEdit, FaPlus, FaSave } from 'react-icons/fa';
+import { FaDiceFive, FaEdit, FaPlus, FaSave, FaTrash } from 'react-icons/fa';
 import QuillEditor from '../../../../Components/List/Quill/QuillEditor';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
@@ -10,15 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../../../../Components/AdminComponents/modal/Modal';
 
 
-  const initialDaynightData={
-    title:"",
-    content:""
-  } 
+const initialDaynightData = {
+    title: "",
+    content: ""
+}
 
 const Dash = () => {
     const userInfo = useSelector(state => state.user);
     const navigate = useNavigate();
-    const [createDaynightData,setCreateDayNightData]=useState(initialDaynightData);
+
     // Data Setting Variables
     // ===========================
     const [luckyNum, setLuckyNum] = useState({ shubhank: "", finalank: [] });
@@ -62,7 +62,9 @@ const Dash = () => {
     const [netWeekUpdatetitle, setNetWeekUpdatetitle] = useState("");
     const [netWeekUpdatecontent, setNetWeekUpdatecontent] = useState("");
     const [dayNighttitle, setDayNightTitle] = useState("");
-    const [dayNightContent, setDayNightContent] = useState("")
+    const [dayNightContent, setDayNightContent] = useState("");
+    const [createDayNightContent, setCreateDaynightContent] = useState("");
+    const [createDayNightTitle, setCreateDayNightTitle] = useState("");
 
     // Editing Id Variables
     // ===========================
@@ -169,6 +171,9 @@ const Dash = () => {
     const handleDayNightChange = (val) => {
         setDayNightContent(val);
     }
+    const handleCreateDayNightChange = (val) => {
+        setCreateDaynightContent(val);
+    }
 
 
 
@@ -249,8 +254,29 @@ const Dash = () => {
 
     // Create Functions
 
-    const createDayNight=async ()=>{
+    const createDayNight = async () => {
+        const response = await API.addDayNight({ title: createDayNightTitle, content: createDayNightContent });
+        if (response.isSuccess) {
+            toast.success("Day Night Created Successfully");
+            setCreateDayNightTitle("");
+            setCreateDaynightContent("");
+            setDayNightModal(false);
+            fetchDayNight();
+        } else {
+            toast.error("Day Night Creation Failed");
+        }
+    }
 
+    const deleteDayNight=async(id)=>{
+        if (window.confirm("Do You Really Want To Delete This Day Night") === true) {
+            const response = await API.deleteDayNight({ id });
+            if (response.isSuccess) {
+                toast.success("Deleted Successfully");
+                fetchDayNight();
+            } else {
+                toast.error("Deletion Failed !!");
+            }
+        }
     }
 
 
@@ -312,7 +338,7 @@ const Dash = () => {
                 </div>
 
                 <div className="daynight-guessing">
-                    <h1 className="sec-title">Day Night Guessing <button className='btn'><FaPlus /></button></h1>
+                    <h1 className="sec-title">Day Night Guessing <button onClick={() => setDayNightModal(true)} className='btn'><FaPlus /></button></h1>
                     <div className="dynt-grid">
                         {dayNight.length > 0 ? dayNight.map((item, index) => {
                             return (
@@ -322,6 +348,7 @@ const Dash = () => {
                                     {dnGuessingEdit === item._id ? <QuillEditor value={dayNightContent} onChange={handleDayNightChange} /> : <div className="guess-cont" dangerouslySetInnerHTML={{ __html: item.content }} />}
                                     <div className="btn-cont ">
                                         {dnGuessingEdit === item._id ? <button className='btn btn__primary' onClick={() => handleDayNightSave(item._id)} ><FaSave /></button> : <button className='btn btn__primary' onClick={() => { setDayNightTitle(item.title); setDayNightContent(item.content); setDnGuessingEdit(item._id) }}><FaEdit /></button>}
+                                        <button className='btn' onClick={() =>deleteDayNight(item._id)}  ><FaTrash /></button>
                                     </div>
                                 </div>
                             )
@@ -388,13 +415,13 @@ const Dash = () => {
                         <div className="formWrap">
                             <div className="form-grid">
                                 <div className="form-item">
-                                    <input type="text" className='cust-input' value={createDaynightData.title} onChange={handleInputChange} placeholder='Title' name='title' />
+                                    <input type="text" className='cust-input' value={createDayNightTitle} onChange={(e) => setCreateDayNightTitle(e.target.value)} placeholder='Title' name='title' />
                                 </div>
                                 <div className="form-item">
-                                    <QuillEditor   value={createDaynightData.content}  />
+                                    <QuillEditor onChange={handleCreateDayNightChange} value={createDayNightContent} />
                                 </div>
                                 <div className="form-item">
-                                    <button onClick={handleCreateGame}>Submit</button>
+                                    <button className='dyntbtn' onClick={createDayNight}>Submit</button>
                                 </div>
                             </div>
                         </div>

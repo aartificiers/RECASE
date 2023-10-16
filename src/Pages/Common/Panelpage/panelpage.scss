@@ -126,7 +126,7 @@
             .pannelTable{
                 h1{
                     font-size:1em;
-
+                    text-transform: uppercase;
                 }
                 table{
 
@@ -135,7 +135,7 @@
                         tr{
                             th{
                                 padding: 4px;
-                                font-size: .8em;
+                                font-size: .6em;
                             }
                         }
                     }
@@ -146,7 +146,7 @@
                                 .dateWrap{
                                     gap: 3px;
                                     h3{
-                                        font-size: .5em;
+                                        font-size: .2em;
                                     }
                                 }
 
@@ -154,13 +154,13 @@
                             .week{
                                 .weekWrap{
                                     .left{
-                                        font-size: .7em;
+                                        font-size: .2em;
                                     }
                                     .right{
-                                        font-size: .7em;
+                                        font-size: .2em;
                                     }
                                     .mid{
-                                        font-size: 1em;
+                                        font-size: .6em;
                                     }
                                 }
                             }

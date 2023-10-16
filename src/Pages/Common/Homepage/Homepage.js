@@ -28,6 +28,7 @@ const Homepage = () => {
    const [panelList,setPanelList]=useState([]);
    const [netWeekly,setNetWeekly]=useState([]);
    const [dayNight,setDayNight]=useState([]);
+   const [toggle,setToggle]=useState(false);
    
 
 
@@ -39,7 +40,7 @@ const Homepage = () => {
       fetchAllPanel();
       fetchNetweek();
       fetchDayNight();
-   }, []);
+   }, [toggle]);
 
    const fetchLuckyData = async () => {
       const response = await API.getluckyNum({ id: '6504c1e8c0972c9a038dd5a2' });
@@ -162,7 +163,7 @@ const Homepage = () => {
 
                   <div className={'secLive' + " glass brdr-rad"}>
                      <h1 className='txtlgt'> <span className='bbl-flash'>Live</span> Updates <div className='flashing-dot' /> </h1>
-                     <TableListSwap />
+                     <TableListSwap toggle={toggle} setToggle={setToggle}  />
 
                   </div>
 
@@ -178,7 +179,7 @@ const Homepage = () => {
 
                   <div className={'matkaResultSection' + " glass brdr-rad"}>
                      <div className={'matkaResultSectionWrap'}>
-                        <MatkaTableSwap />
+                        <MatkaTableSwap toggle={toggle} setToggle={setToggle} />
                      </div>
                   </div>
 

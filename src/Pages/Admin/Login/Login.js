@@ -76,8 +76,8 @@ const Login = () => {
                                 <div className={"inputWrap"}>
 
                                     <div className={"custRow"}>
-                                        <input name='username' onChange={handleInputChange} value={formData.username} type="text" placeholder='User Name' className={"inputs"} />
-                                        <input name='password' onChange={handleInputChange} value={formData.password} type="password" placeholder='Password' className={"inputs"} />
+                                        <input name='username' id='username' onChange={handleInputChange} value={formData.username} type="text" placeholder='User Name' className={"inputs"} />
+                                        <input name='password' id='password' onChange={handleInputChange} value={formData.password} type="password" placeholder='Password' className={"inputs"} />
                                         <button onClick={handleSubmit} value="Submit" className={"submit"}>{loading ? <Loader /> : 'Submit'}</button>
                                     </div>
 

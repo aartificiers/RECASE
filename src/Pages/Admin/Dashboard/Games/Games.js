@@ -439,11 +439,11 @@ const Games = () => {
                 </Modal>
 
                 <Modal title={"Add Owner"} openModal={ownerModal} setOpenModal={setOwnerModal} >
-
-                    <h1>Select Owner For <span style={{ color: "var(--neon-green)" }}>{selectedGammeForOwner?.gamename.toUpperCase()}</span> </h1>
-                    <br /><br />
-                    <AutoComplete onSelect={handleOwnerSelect} />
-
+                    <div className="owner-form-cont">
+                        <h1>Select Owner For <span style={{ color: "var(--neon-green)" }}>{selectedGammeForOwner?.gamename.toUpperCase()}</span> </h1>
+                        <br /><br />
+                        <AutoComplete onSelect={handleOwnerSelect} />
+                    </div>
                 </Modal>
 
                 <Modal title={"Game Owner Details"} openModal={ownerDetailsModal} setOpenModal={setOwnerDetailsModal} >

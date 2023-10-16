@@ -68,6 +68,28 @@
 }
 
 @media screen and (max-width:991px) {
+    .jodi{
+        .jodiWrap{
+            .jodiTable{
+                table{
+                    thead{
+                        tr{
+                            th{
+                                padding: 5px;
+                            }
+                        }
+                    }
+                    tbody{
+                        tr{
+                            td{
+                               font-size: 0.8em; 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     
 

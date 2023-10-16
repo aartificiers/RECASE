@@ -4,7 +4,7 @@ import { RiRefreshLine } from "react-icons/ri";
 import { liveUpdate } from '../../Constants/dummy';
 import { API } from '../../Services/Api';
 
-const TableListSwap = () => {
+const TableListSwap = ({toggle,setToggle}) => {
     const [windowDimensions, setWindowDimensions] = useState({
         width:  0,
         height:  0,
@@ -58,7 +58,7 @@ const TableListSwap = () => {
                             <ul>
                                 {liveGames?.map((item, index) => {
                                     return (
-                                        <li key={index}>
+                                        <li key={index} className={ item.hilite ? 'livelistrow hilite' : 'livelistrow'} >
                                             <div className='liveTop'>
                                                 {item.extra?.length > 0 ? item.extra.map((extra, ind) => {
                                                     return (
@@ -75,7 +75,7 @@ const TableListSwap = () => {
                                             </div>
 
                                             <div className="liveBottom">
-                                                <div className='list-btns'><button><RiRefreshLine /></button></div>
+                                                <div className='list-btns'><button onClick={()=>setToggle(!toggle)} ><RiRefreshLine /></button></div>
                                                 <div className="time"> {item.time} </div>
                                             </div>
                                         </li>
@@ -103,7 +103,7 @@ const TableListSwap = () => {
                                     <tbody>
                                         {liveGames?.map((item, index) => {
                                             return (
-                                                <tr key={index}>
+                                                <tr key={index} className={item.hilite ? 'livembl hilite' : 'livembl'} >
                                                     <td>
                                                         {item.extra?.length > 0 ? item.extra.map((extra, ind) => {
                                                             return (
@@ -114,7 +114,7 @@ const TableListSwap = () => {
                                                     </td>
                                                     <td>{item.time}</td>
                                                     <td>{item.result}</td>
-                                                    <td className='table-btns'><button>Refresh</button></td>
+                                                    <td className='table-btns' onClick={()=>setToggle(!toggle)} ><button>Refresh</button></td>
                                                 </tr>
                                             )
                                         })}

@@ -234,8 +234,8 @@
 
                     label {
                         width: 50px;
-                        display: block;
                         height: 50px;
+                        display: block;
                         overflow: hidden;
                         border-radius: 50%;
                         border: 3px solid white;
@@ -292,6 +292,28 @@
                 .table-config{
                     width: 100%;
                 }
+            }
+            .formWrap{
+                
+                .form-item{
+                    .avatar-cont{
+                        label{
+                            height: 30px;
+                            width: 30px;
+                            border: 1px solid white;
+
+                            img{
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                object-position: center;
+                            }
+                            
+                        }
+
+                    }
+                }
+
             }
         }
     }

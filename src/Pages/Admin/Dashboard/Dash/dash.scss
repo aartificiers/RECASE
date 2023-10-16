@@ -75,8 +75,7 @@
                 display: flex;
                 gap: 15px;
                 align-items: center;
-
-
+                
             }
 
         }
@@ -245,6 +244,7 @@
                         z-index: 2;
                         justify-content: end;
                         transition: 0.5s;
+                        gap: 15px;
                     }
                 }
             }
@@ -253,7 +253,7 @@
         .weeknumtable-view {
             width: 100%;
             padding: 25px;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
 
             .weeknumview-wrap {
                 width: 100%;
@@ -369,6 +369,28 @@
                         }
                     }
                 }
+            }
+        }
+        .formWrap {
+
+            .form-item {
+
+                .dyntbtn {
+                    width: 100%;
+                    height: 45px;
+                    padding: 10px;
+                    background: transparent;
+                    color: var(--thrclr);
+                    border: 1px solid var(--thrclr);
+                    outline: none;
+                    font-size: 1em;
+                    border-radius: 10px;
+
+                    &:hover {
+                        background: #cccccc13;
+                    }
+                }
+
             }
         }
 

@@ -5,7 +5,7 @@ import { fastSatkaResult } from '../../Constants/dummy';
 import { API } from '../../Services/Api';
 import { Link } from 'react-router-dom';
 
-const MatkaTableSwap = () => {
+const MatkaTableSwap = ({toggle,setToggle}) => {
     const [gamesResultData,setGamesResultData]=useState([]);
     const [windowDimensions, setWindowDimensions] = useState({
         width: 1536,
@@ -54,7 +54,7 @@ const MatkaTableSwap = () => {
                             <ul>
                                 {gamesResultData?.map((item, index) => {
                                     return (
-                                        <li key={index}>
+                                        <li key={index} className={item.hilite ? 'livelistrow hilite' : 'livelistrow'}>
                                             <div className='liveTop'>
                                                 {item.extra?.length > 0 ? item.extra.map((extra, ind) => {
                                                     return (
@@ -104,7 +104,7 @@ const MatkaTableSwap = () => {
                                         {gamesResultData?.map((item, index) => {
 
                                             return (
-                                                <tr key={index}>
+                                                <tr key={index} className={item.hilite ? 'livembl hilite' : 'livembl'}>
                                                     <td>
                                                         {item.extra?.length > 0 ? item.extra.map((extra, ind) => {
                                                             return (

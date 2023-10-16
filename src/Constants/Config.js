@@ -54,6 +54,7 @@ export const SERVICE_URLS = {
     getDayNight: { url: "/daynight/get", method: "GET" },
     addDayNight: { url: "/daynight/create", method: "POST" },
     editDayNight: { url: "/daynight/update", method: "POST" },
+    deleteDayNight: { url: "/daynight/delete", method: "POST" },
 
     // api for guessingtable
     getGuessings:{ url: "/guessing/get", method: "GET" },

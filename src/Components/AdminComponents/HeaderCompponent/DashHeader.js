@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { FaHome, FaMinus, FaSearch, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { FaHome, FaMinus, FaPlus, FaSearch, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { BsDice6 } from 'react-icons/bs';
 import "./Header.scss";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiSolidDashboard } from 'react-icons/bi';
 import { IoGameController } from 'react-icons/io5';
-import { GrAdd } from 'react-icons/gr';
 import { addUser } from '../../../Store/Slices/userSlice';
 import { logoutUser } from '../../../Utils/commonutil';
-import { IoIosAdd, IoMdExit } from 'react-icons/io';
+import { IoMdExit } from 'react-icons/io';
 
 const DashHeader = (props) => {
     const user = useSelector(state => state.user);
@@ -43,7 +42,7 @@ const DashHeader = (props) => {
                             <div className="link"><Link to={'/'} ><FaHome /></Link></div>
                             <div className="link"><button onClick={logout} className='logBtn'><IoMdExit /></button></div>
                         </div>
-                        <div className="link">{openNavLinks ? <button onClick={()=>setOpenNavLinks(false)} className='logBtn'><FaMinus/></button>: <button onClick={()=>setOpenNavLinks(true)} className='logBtn'><IoIosAdd /></button>}</div>
+                        <div className="link">{openNavLinks ? <button onClick={()=>setOpenNavLinks(false)} style={{padding:"15px"}} className='logBtn'><FaMinus/></button>: <button onClick={()=>setOpenNavLinks(true)} style={{padding:"15px"}} className='logBtn'><FaPlus/></button>}</div>
                     </div>
                 </div>
             </div>
@@ -51,4 +50,4 @@ const DashHeader = (props) => {
     )
 }
 
-export default DashHeader
+export default DashHeader;

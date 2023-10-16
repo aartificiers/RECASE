@@ -19,22 +19,22 @@ import Denied from '../Denied/Denied';
 
 
 const Layout = () => {
-  const userInfo=useSelector(state=>state.user);
-    let [sideBarToggle, setSideBarToggle] = useState(false);
-    const navigate=useNavigate();
-    const dispatch= useDispatch();
-    const {page,id} = useParams();
+  const userInfo = useSelector(state => state.user);
+  let [sideBarToggle, setSideBarToggle] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { page, id } = useParams();
 
 
 
-    const logout=()=>{
-      if(logoutUser()){
-        dispatch(addUser({isAuthenticated:false,user:{}}));
-        navigate("/admin/login");
-      }else{
-        toast.error("Logout Failed");
-      }
+  const logout = () => {
+    if (logoutUser()) {
+      dispatch(addUser({ isAuthenticated: false, user: {} }));
+      navigate("/admin/login");
+    } else {
+      toast.error("Logout Failed");
     }
+  }
   return (
     <div className="dashboard">
       <div className="dashWrap">
@@ -62,8 +62,8 @@ const Layout = () => {
               <li>
                 <div title="SR Boss" className='logo'><Link to={"/home"}>SR Dash</Link></div>
                 <div className="user"><Link to={"#"}><img src={userInfo.user.profilepic} alt='avatar' width={100} height={100} />{userInfo.user.name}</Link></div>
-                {userInfo.user.role=="BENJO" && <div className="menu-list"><Link to={"/admin/dashboard/dash"}><BiSolidDashboard />Dashboard</Link></div>}
-                {userInfo.user.role==="BENJO" && <div className="menu-list"><Link to={"/admin/dashboard/subuser"}><FaUser />Sub User</Link></div>}
+                {userInfo.user.role == "BENJO" && <div className="menu-list"><Link to={"/admin/dashboard/dash"}><BiSolidDashboard />Dashboard</Link></div>}
+                {userInfo.user.role === "BENJO" && <div className="menu-list"><Link to={"/admin/dashboard/subuser"}><FaUser />Sub User</Link></div>}
                 <div className="menu-list"><Link to={"/admin/dashboard/games"}><IoGameController />Games</Link></div>
               </li>
               <li>
@@ -75,11 +75,11 @@ const Layout = () => {
         </div>
         <div className="rightSide">
           {
-            page === 'dash' && userInfo.user.role === "BENJO" ?<Dash/>:
-            page === 'panel' && (id!=null || id!=undefined || id!="")?<Panel panel_id={id} />:
-            page === 'games'?<Games/>:
-            page === 'jodi' && (id!=null || id!=undefined || id!="")?<Jodi jodi_id={id} />:
-            page === 'subuser' && userInfo.user.role === "BENJO" ?<Subuser/>:<Denied/>
+            page === 'dash' && userInfo.user.role === "BENJO" ? <Dash /> :
+              page === 'panel' && (id != null || id != undefined || id != "") ? <Panel panel_id={id} /> :
+                page === 'games' ? <Games /> :
+                  page === 'jodi' && (id != null || id != undefined || id != "") ? <Jodi jodi_id={id} /> :
+                    page === 'subuser' && userInfo.user.role === "BENJO" ? <Subuser /> : <Denied />
           }
         </div>
       </div>
