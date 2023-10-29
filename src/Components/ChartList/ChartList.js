@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 
 const ChartList = (props) => {
-    console.log(props.data);
     return (
         <div className='ChartList glass brdr-rad'>
             <div className="ChartListWrap">

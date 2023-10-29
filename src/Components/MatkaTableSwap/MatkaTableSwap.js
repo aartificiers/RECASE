@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './matkatable.scss';
-import { RiRefreshLine } from 'react-icons/ri';
-import { fastSatkaResult } from '../../Constants/dummy';
 import { API } from '../../Services/Api';
 import { Link } from 'react-router-dom';
 

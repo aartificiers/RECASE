@@ -100,7 +100,6 @@ const Panel = ({ panel_id }) => {
   const fetchPanel = async () => {
     const resp = await API.getPanelById({ id: panel_id });
     if (resp.isSuccess) {
-      console.log(resp);
       setPanelData(resp.data[0]);
     } else {
       console.log(resp);

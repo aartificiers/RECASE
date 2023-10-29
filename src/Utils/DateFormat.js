@@ -33,3 +33,24 @@ export function convertDateFormat(inputDate) {
       return "Invalid Date";
   }
 }
+
+
+export function checkLiveOut(items){
+  const currentTime = new Date();
+  const result = { status: false, ids: [] };
+
+  items.forEach((item) => {
+    // Parse the end time from the "HH:mm" format
+    const [endHour, endMinute] = item.live_end_time?.split(':');
+    const endTime = new Date();
+    endTime.setHours(parseInt(endHour, 10), parseInt(endMinute, 10), 0, 0);
+
+    if (currentTime >= endTime) {
+      result.status = true;
+      result.ids.push(item._id);
+    }
+  });
+
+  return result;
+
+}

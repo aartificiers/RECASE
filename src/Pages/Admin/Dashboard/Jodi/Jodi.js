@@ -87,7 +87,6 @@ const Jodi = ({ jodi_id }) => {
     const fetchJodi = async () => {
         const resp = await API.getJodiById({ id: jodi_id });
         if (resp.isSuccess) {
-            console.log(resp);
             setJodiData(resp.data[0]);
         } else {
             console.log(resp);
@@ -123,8 +122,6 @@ const Jodi = ({ jodi_id }) => {
     const handleUpdateHiliteChange = (e) => {
         const { name, checked } = e.target;
 
-        console.log(name,checked);
-
         setJodiUpdateData(preval => {
             return {
                 ...preval,
@@ -138,8 +135,6 @@ const Jodi = ({ jodi_id }) => {
     }
     const handleCreateHiliteChange = (e) => {
         const { name, checked } = e.target;
-
-        console.log(name,checked);
 
         setJodiFormData(preval => {
             return {

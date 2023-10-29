@@ -19,7 +19,6 @@ const Jodipage = () => {
     const fetchJodi = async () => {
         const resp = await API.getJodiById({ id: id });
         if (resp.isSuccess) {
-            console.log(resp);
             setJodiData(resp.data[0]);
         } else {
             console.log(resp);

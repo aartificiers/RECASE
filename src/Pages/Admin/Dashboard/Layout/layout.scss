@@ -291,6 +291,10 @@
         outline: none;
         border-radius: 10px;
 
+        &::-webkit-calendar-picker-indicator {
+            filter: invert(1); /* Change the color by adjusting the hue rotation */
+        }
+
         &::placeholder {
             color: var(--scclr);
         }

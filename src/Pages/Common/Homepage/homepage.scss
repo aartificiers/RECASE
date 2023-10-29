@@ -161,89 +161,89 @@
         gap: 5px;
       }
 
-      .liveTable {
-        width: 100%;
+      // .liveTable {
+      //   width: 100%;
 
-        .liveTableWrap {
-          width: 100%;
-          overflow-x: auto;
+      //   .liveTableWrap {
+      //     width: 100%;
+      //     overflow-x: auto;
 
-          table {
-            width: 100%;
-            border-collapse: collapse;
+      //     table {
+      //       width: 100%;
+      //       border-collapse: collapse;
 
-            thead {
-              width: 100%;
-              background-color: var(--primary-color);
-              color: white;
+      //       thead {
+      //         width: 100%;
+      //         background-color: var(--primary-color);
+      //         color: white;
 
-              tr {
-                width: 100%;
+      //         tr {
+      //           width: 100%;
 
-                th {
-                  font-size: 30px;
-                  font-weight: 600;
-                  text-align: left;
-                  padding: 4px 10px;
-                }
-              }
-            }
+      //           th {
+      //             font-size: 30px;
+      //             font-weight: 600;
+      //             text-align: left;
+      //             padding: 4px 10px;
+      //           }
+      //         }
+      //       }
 
-            tbody {
-              width: 100%;
+      //       tbody {
+      //         width: 100%;
 
-              tr {
-                width: 100%;
-                margin: 20px 0;
-                border-bottom: 1px solid gray;
-
-
-
-                td {
-                  font-size: 25px;
-                  padding: 15px 10px;
-                  line-height: 2em;
-                  text-transform: uppercase;
-                  color: var(--neon-blue);
-                  font-weight: 600;
-
-                  p {
-                    color: white;
-                    font-weight: 300;
-                  }
-
-                  button {
-                    padding: 10px 20px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border: none;
-                    outline: none;
-                    border-radius: 8px;
-                    background: white;
-                    color: var(--primary-color);
-                    font-size: 20px;
-                    font-weight: 700;
-                    cursor: pointer;
-                    transition: 0.5s ease;
-                    border: 2px solid white;
-
-                    &:hover {
-                      background: var(--primary-color);
-                      color: var(--neon-color);
-                      transition: 0.5s ease;
-                      border: 2px solid var(--neon-color);
-                    }
-                  }
-                }
-
-              }
-            }
-          }
+      //         tr {
+      //           width: 100%;
+      //           margin: 20px 0;
+      //           border-bottom: 1px solid gray;
 
 
-        }
-      }
+
+      //           td {
+      //             font-size: 25px;
+      //             padding: 15px 10px;
+      //             line-height: 2em;
+      //             text-transform: uppercase;
+      //             color: var(--neon-blue);
+      //             font-weight: 600;
+
+      //             p {
+      //               color: white;
+      //               font-weight: 300;
+      //             }
+
+      //             button {
+      //               padding: 10px 20px;
+      //               display: flex;
+      //               justify-content: center;
+      //               align-items: center;
+      //               border: none;
+      //               outline: none;
+      //               border-radius: 8px;
+      //               background: white;
+      //               color: var(--primary-color);
+      //               font-size: 20px;
+      //               font-weight: 700;
+      //               cursor: pointer;
+      //               transition: 0.5s ease;
+      //               border: 2px solid white;
+
+      //               &:hover {
+      //                 background: var(--primary-color);
+      //                 color: var(--neon-color);
+      //                 transition: 0.5s ease;
+      //                 border: 2px solid var(--neon-color);
+      //               }
+      //             }
+      //           }
+
+      //         }
+      //       }
+      //     }
+
+
+      //   }
+      // }
 
 
     }

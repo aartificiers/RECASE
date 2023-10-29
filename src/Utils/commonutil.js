@@ -82,7 +82,6 @@ export const getCookie=(cookieName)=> {
   export const logoutUser=async()=>{
 
     const response=await API.userLogOut();
-    console.log(response);
     if(response.isSuccess){
       localStorage.clear();
       return true;
