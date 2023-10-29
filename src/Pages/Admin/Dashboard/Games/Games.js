@@ -74,7 +74,7 @@ const Games = () => {
     }, [itemPerPage, currentPage, toggle, searchSelected]);
 
     useEffect(() => {
-        const checkInterval = 5000; // 5 seconds
+        const checkInterval =3 * 60 * 1000; // 5 minutes
         let previousStatus = false;
     
         const checkLiveOutAndAlert = async() => {
