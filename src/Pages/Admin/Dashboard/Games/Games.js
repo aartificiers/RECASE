@@ -32,6 +32,8 @@ const initialGameUpdateData = {
     gamename: "",
     gametype: "Mumbai Side",
     result: "",
+    live_start_time: "",
+    live_end_time: "",
     time: "",
     hilite: false,
 }
@@ -74,35 +76,22 @@ const Games = () => {
     }, [itemPerPage, currentPage, toggle, searchSelected]);
 
     useEffect(() => {
-        const checkInterval =3 * 60 * 1000; // 5 minutes
-        let previousStatus = false;
-    
-        const checkLiveOutAndAlert = async() => {
-          const result = checkLiveOut(tableData);
-    
-          if (result.status === true && previousStatus === false) {
-            const response=await API.updateSpecificGames({ids:result.ids,updateData:{islive:false,live_start_time:"",live_end_time:""}});
-            if(response.isSuccess){
-                toast.info("Live Session Over Checkout");
-                fetchGames();
-            }else{
-                toast.info("Session time are remaining");
-            }
-          }
-    
-          previousStatus = result.status;
+        // const checkInterval = 3 * 60 * 1000;
+        const checkInterval =1 * 60 * 1000;
+        const checkLiveOutAndAlert = async () => {
+            fetchGames();
         };
-    
+
         // Initial check
         checkLiveOutAndAlert();
-    
+
         // Set up an interval to check every 5 seconds
         const intervalId = setInterval(checkLiveOutAndAlert, checkInterval);
-    
+
         return () => {
-          clearInterval(intervalId);
+            clearInterval(intervalId);
         };
-      }, [tableData]);
+    }, []);
 
     const fetchGames = async () => {
         setIsLoading(true);
@@ -275,7 +264,7 @@ const Games = () => {
             }
         })
     }
-   
+
     const handleCreateGame = async () => {
         setIsLoading(true);
         const resp = await API.createGame({ seq: tableData.length <= 0 ? 0 : tableData.length, ...gameFormData });
@@ -307,14 +296,38 @@ const Games = () => {
 
     }
 
-    const handleRevokeLive=async(id)=>{
-        const resp=await API.updateGame({id,updateData:{islive:false,live_start_time:"",live_end_time:""}});
-        if(resp.isSuccess){
+    const handleRevokeLive = async (id) => {
+        const resp = await API.updateGame({ id, updateData: { islive: false,live_start_time:""} });
+        if (resp.isSuccess) {
             toast.success("Live Revoked");
             fetchGames();
-        }else{
+        } else {
             toast.error("Revoke Failed");
         }
+    }
+
+    const handleGameDeletePermanently=async (data)=>{
+        if (window.confirm("Do You Really Want To Delete This Game Permanently") === true) {
+            const response = await API.deleteGame({ id :data._id});
+            setIsLoading(true);
+            if (response.isSuccess) {
+                const resp = await API.deleteJodiPermanently({ id:data.jodi_id });
+                const rep = await API.deletePanelPermanently({ id:data.panel_id });
+
+                if (resp.isSuccess && rep.isSuccess) {
+                    toast.success("Game Removed Successfully");
+                    setToggle(!toggle);
+                    setIsLoading(false);
+                } else {
+                    toast.error("Deletion Failed");
+                    setIsLoading(false);
+
+                }
+            } else {
+                toast.error("Deletion Failed !!");
+            }
+        }
+
     }
 
     const handleItemPerpage = (e) => {
@@ -415,7 +428,8 @@ const Games = () => {
                                             <th>Type</th>
                                             <th>Result</th>
                                             {userInfo.user.role === "BENJO" && <th>Owner</th>}
-                                            <th>Time</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
                                             <th>Highlighted</th>
                                             <th>Live</th>
                                             <th>Jodi</th>
@@ -441,12 +455,13 @@ const Games = () => {
                                                                 </select> : data.gametype}</td>
                                                             <td>{editingId === data._id ? <input type='text' name='result' onChange={handleUpdateInputChange} value={gameUpdateData.result} /> : data.result}</td>
                                                             {userInfo.user.role === "BENJO" && <td>{data.owner_id != null && data.owner_id !== "" ? <button className='actn-btn' onClick={() => { fetchIndividualAdmin(data.owner_id, data._id) }}>Owner</button> : <button className='actn-btn' onClick={() => { setSelectedGame(data); setOwnerModal(true) }} >Add</button>}</td>}
-                                                            <td>{editingId === data._id ? <input type='text' name='time' onChange={handleUpdateInputChange} value={gameUpdateData.time} /> : data.time}</td>
+                                                            <td>{editingId === data._id ? <input type="time" value={gameUpdateData.live_start_time} onChange={handleUpdateInputChange} name='live_start_time' /> : data.live_start_time}</td>
+                                                            <td>{editingId === data._id ? <input type="time" value={gameUpdateData.live_end_time} onChange={handleUpdateInputChange} name='live_end_time' /> : data.live_end_time}</td>
                                                             <td>{editingId === data._id && userInfo.user.role === "BENJO" ? <input type='checkbox' checked={gameUpdateData.hilite} onChange={handleUpdateHiliteChange} /> : data.hilite ? "YES" : "NO"}</td>
-                                                            <td>{userInfo.user.role === "BENJO" && data.islive===true ? <div style={{display:"flex",gap:"10px",alignItems:"center"}} ><div className='flashing-dot'></div><button title='Unlive' onClick={()=>handleRevokeLive(data._id)} className='actn-btn' ><PiProhibitFill/></button></div>  : <button className='actn-btn' onClick={() => { setLiveModal(!liveModal); setMakeLiveId(data._id) }}>Live</button>}</td>
+                                                            <td>{userInfo.user.role === "BENJO" && data.islive === true ? <div style={{ display: "flex", gap: "10px", alignItems: "center" }} ><div className='flashing-dot'></div><button title='Unlive' onClick={() => handleRevokeLive(data._id)} className='actn-btn' ><PiProhibitFill /></button></div> : "Unlive"}</td>
                                                             <td><Link className='actn-btn' to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
                                                             <td><Link className='actn-btn' to={`/admin/dashboard/panel/${data.panel_id}`}>Panel</Link></td>
-                                                            <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>{editingId === data._id ? <button className='actn-btn' onClick={() => handleUpdateGame(data._id)}><FaSave /></button> : <button className='actn-btn' onClick={() => { setGameUpdateData({ gamename: data.gamename, gametype: data.gametype, result: data.result, time: data.time, hilite: data.hilite }); setEditingId(data._id) }}><FaEdit /></button>} {userInfo.user.role === "BENJO" && <button onClick={() => handleDeleteGame(data)} className='actn-btn'><FaTrash /></button>} </div></td>
+                                                            <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>{editingId === data._id ? <button className='actn-btn' onClick={() => handleUpdateGame(data._id)}><FaSave /></button> : <button className='actn-btn' onClick={() => { setGameUpdateData({ gamename: data.gamename, gametype: data.gametype, result: data.result, time: data.time, hilite: data.hilite,live_start_time:data.live_start_time,live_end_time:data.live_end_time }); setEditingId(data._id) }}><FaEdit /></button>} {userInfo.user.role === "BENJO" && <button onClick={() => handleDeleteGame(data)} className='actn-btn'><FaTrash /></button>} </div></td>
                                                         </tr>
                                                     )}
                                                 </Draggable>
@@ -494,7 +509,8 @@ const Games = () => {
                                     <th>Type</th>
                                     <th>Result</th>
                                     <th>Owner</th>
-                                    <th>Time</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
                                     <th>Highlighted</th>
                                     <th>Live</th>
                                     <th>Jodi</th>
@@ -512,12 +528,13 @@ const Games = () => {
                                             <td>{data.gametype}</td>
                                             <td>{data.result}</td>
                                             <td>{data.owner_id != null && data.owner_id !== "" ? <button className='actn-btn' onClick={() => { fetchIndividualAdmin(data.owner_id, data._id) }}>Owner</button> : null}</td>
-                                            <td>{data.time}</td>
+                                            <td>{data.live_start_time}</td>
+                                            <td>{data.live_end_time}</td>
                                             <td>{data.hilite ? "YES" : "NO"}</td>
                                             <td>{data.islive ? <div className='flashing-dot'></div> : "NO"}</td>
                                             <td><Link className='actn-btn' to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
                                             <td><Link className='actn-btn' to={`/admin/dashboard/panel/${data.panel_id}`}>Panel</Link></td>
-                                            <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}><button className='actn-btn' onClick={() => handleUnhideGame(data)}><FaEye /></button> </div></td>
+                                            <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}><button className='actn-btn' onClick={() => handleUnhideGame(data)}><FaEye /></button><button className='actn-btn' onClick={()=>{handleGameDeletePermanently(data)}} ><FaTrash/></button> </div></td>
                                         </tr>
                                     )
                                 }) : (

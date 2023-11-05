@@ -71,6 +71,7 @@ export const SERVICE_URLS = {
     updateGame:{url:"/game/update",method:"POST"},
     updateOneGame:{url:"/game/update/one",method:"POST"},
     updateSpecificGames:{url:"/game/update/speci",method:"POST"},
+    deleteGame:{url:"/game/delete",method:"POST"},
 
 
     // api For Jodi
@@ -80,6 +81,7 @@ export const SERVICE_URLS = {
     updateJodi:{url:'/jodi/update',method:"POST"},
     updateMainJodi:{url:'/jodi/update/main',method:"POST"},
     deleteJodi:{url:'/jodi/delete',method:'POST'},
+    deleteJodiPermanently:{url:'/jodi/delete/perm',method:'POST'},
     
     // api For Jodi
     getPanelById:{url:'/panel/get',method:"GET",params:true},
@@ -88,6 +90,7 @@ export const SERVICE_URLS = {
     updatePanel:{url:'/panel/update',method:"POST"},
     updateMainPanel:{url:'/panel/update/main',method:"POST"},
     deletePanel:{url:'/panel/delete',method:'POST'},
+    deletePanelPermanently:{url:'/panel/delete/perm',method:'POST'},
     
 }
 

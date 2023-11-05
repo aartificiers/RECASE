@@ -7,7 +7,7 @@ import NetWeekly from '../../../Components/NetWeekly/NetWeekly';
 import GridResult from '../../../Components/GridResult/GridResult';
 import WeekNumTable from '../../../Components/WeekNum/WeekNumTable';
 import ChartList from '../../../Components/ChartList/ChartList';
-import { BsQuestionDiamond } from 'react-icons/bs';
+import { BsQuestionDiamond, BsWhatsapp } from 'react-icons/bs';
 import { FaqOthers, faqEnglish, faqHindi, gridResultData, jodiChartList, netWeeklyData, pannelChartList, weeknumtableData } from '../../../Constants/dummy';
 import { dateFormat } from '../../../Utils/DateFormat';
 import { Footer } from '../../../Components/Footer/Footer';
@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet';
 import { API } from '../../../Services/Api';
 import Marquee from 'react-fast-marquee';
 import { logoutUser } from '../../../Utils/commonutil';
+import { IoIosRefresh } from 'react-icons/io';
 
 
 
@@ -107,6 +108,8 @@ const Homepage = () => {
          <Helmet>
             <title>Homepage - SRboss.com</title>
          </Helmet>
+         <a className='floating-btn whatsapp' href={"https://wa.me/9893447094?text=Hello%20from%20my%20app"} target="_blank" rel="noopener noreferrer"><BsWhatsapp/></a>
+         <button className='floating-btn refresh' onClick={()=>{setToggle(!toggle)}} ><IoIosRefresh/></button>
 
          <div className="mainWrap">
             <Navbar />

@@ -14,6 +14,23 @@ export const dateFormat=()=>{
       return formattedDate;
 }
 
+export function addAMPMToTime(timeStr) {
+  try {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+
+    if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+      return 'Invalid time format';
+    }
+
+    const ampm = hours < 12 ? 'AM' : 'PM';
+    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+
+    return `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${ampm}`;
+  } catch (error) {
+    return 'Invalid time format';
+  }
+}
+
 
 export function convertDateFormat(inputDate) {
   // Parse the input date in "yyyy-MM-dd" format

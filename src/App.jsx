@@ -117,9 +117,7 @@ function App() {
 
 
   return (
-    <div className="app">
-
-
+    <div className="app">      
       <ToastContainer position='top-right' autoClose={3000} transition={Flip} hideProgressBar={false} />
 
       {!userinfo.isAuthenticated ? showAlert && <Customalert data={{ title: "Session Expired", message: "Your Session Is Expired, Please Sign In Again" }} type={"warn"} handleClose={() => { setShowAlert(false); navigate("/admin/login") }} /> : null}

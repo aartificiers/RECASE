@@ -89,6 +89,46 @@ html {
   overflow: hidden;
   display: flex;
   justify-content: center;
+  position: relative;
+
+  .floating-btn{
+    position: absolute;
+    bottom: 100px;
+    right: 50px;
+    z-index: 5;
+    padding: 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s ease;
+
+
+    &:hover{
+      scale: 1.09;
+      transition: 0.5s ease;
+    }
+
+    &.whatsapp{
+      background: #1bd741;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5em;
+      border: none;
+      outline: none;
+
+    }
+    &.refresh{
+      background: white;
+      color: black;
+      border-radius: 50%;
+      bottom: 150px;
+      font-size: 1.5em;
+      border: none;
+      outline: none;
+
+    }
+  }
 
   &.dark {
 
@@ -278,6 +318,19 @@ html {
   }
 
   .main {
+    .floating-btn{
+      &.whatsapp{
+        font-size: 1.2em;
+        right: 15px;
+        bottom: 20px;
+      }
+      &.refresh{
+        font-size: 1.2em;
+        right: 15px;
+        bottom: 70px;
+
+      }
+    }
     &.dark {
       background: url("./assets/phonebg.png");
       background-size: cover;
