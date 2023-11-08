@@ -108,7 +108,7 @@ const Homepage = () => {
          <Helmet>
             <title>Homepage - SRboss.com</title>
          </Helmet>
-         <a className='floating-btn whatsapp' href={"https://wa.me/9893447094?text=Hello%20from%20my%20app"} target="_blank" rel="noopener noreferrer"><BsWhatsapp/></a>
+         <a className='floating-btn whatsapp' href={"https://wa.me/9893447094?text=Hello%20from%20SR%20Boss%20Web"} target="_blank" rel="noopener noreferrer"><BsWhatsapp/></a>
          <button className='floating-btn refresh' onClick={()=>{setToggle(!toggle)}} ><IoIosRefresh/></button>
 
          <div className="mainWrap">
