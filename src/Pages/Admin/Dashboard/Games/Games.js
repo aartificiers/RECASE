@@ -13,7 +13,7 @@ import { TbArrowWaveLeftDown, TbArrowWaveRightUp } from 'react-icons/tb';
 import { toast } from 'react-toastify';
 import AutoComplete from '../../../../Components/AutoComplete/AutoComplete';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { checkLiveOut } from '../../../../Utils/DateFormat';
+import { addAMPMToTime, checkLiveOut } from '../../../../Utils/DateFormat';
 import Spinner from '../../../../Components/Spinner/Spinner';
 
 const initialfiltervalue = {
@@ -295,6 +295,19 @@ const Games = () => {
         }
 
     }
+    const handleMakeGameLive = async (id) => {
+
+        const response = await API.updateGame({ id, updateData: {islive:true,live_start_time:"",live_end_time:""} });
+
+        if (response.isSuccess) {
+            toast.success("One Row Updated Successfully");
+            setEditingId(null);
+            fetchGames();
+        } else {
+            toast.error("Updation Failed");
+        }
+
+    }
 
     const handleRevokeLive = async (id) => {
         const resp = await API.updateGame({ id, updateData: { islive: false,live_start_time:""} });
@@ -428,6 +441,7 @@ const Games = () => {
                                             <th>Type</th>
                                             <th>Result</th>
                                             {userInfo.user.role === "BENJO" && <th>Owner</th>}
+                                            <th>Time-Range</th>
                                             <th>Start Time</th>
                                             <th>End Time</th>
                                             <th>Highlighted</th>
@@ -455,10 +469,11 @@ const Games = () => {
                                                                 </select> : data.gametype}</td>
                                                             <td>{editingId === data._id ? <input type='text' name='result' onChange={handleUpdateInputChange} value={gameUpdateData.result} /> : data.result}</td>
                                                             {userInfo.user.role === "BENJO" && <td>{data.owner_id != null && data.owner_id !== "" ? <button className='actn-btn' onClick={() => { fetchIndividualAdmin(data.owner_id, data._id) }}>Owner</button> : <button className='actn-btn' onClick={() => { setSelectedGame(data); setOwnerModal(true) }} >Add</button>}</td>}
-                                                            <td>{editingId === data._id ? <input type="time" value={gameUpdateData.live_start_time} onChange={handleUpdateInputChange} name='live_start_time' /> : data.live_start_time}</td>
-                                                            <td>{editingId === data._id ? <input type="time" value={gameUpdateData.live_end_time} onChange={handleUpdateInputChange} name='live_end_time' /> : data.live_end_time}</td>
+                                                            <td>{data.time}</td>
+                                                            <td>{editingId === data._id ? <input type="time" value={gameUpdateData.live_start_time} onChange={handleUpdateInputChange} name='live_start_time' /> : addAMPMToTime(data.live_start_time)}</td>
+                                                            <td>{editingId === data._id ? <input type="time" value={gameUpdateData.live_end_time} onChange={handleUpdateInputChange} name='live_end_time' /> : addAMPMToTime(data.live_end_time)}</td>
                                                             <td>{editingId === data._id && userInfo.user.role === "BENJO" ? <input type='checkbox' checked={gameUpdateData.hilite} onChange={handleUpdateHiliteChange} /> : data.hilite ? "YES" : "NO"}</td>
-                                                            <td>{userInfo.user.role === "BENJO" && data.islive === true ? <div style={{ display: "flex", gap: "10px", alignItems: "center" }} ><div className='flashing-dot'></div><button title='Unlive' onClick={() => handleRevokeLive(data._id)} className='actn-btn' ><PiProhibitFill /></button></div> : "Unlive"}</td>
+                                                            <td>{userInfo.user.role === "BENJO" && data.islive === true ? <div style={{ display: "flex", gap: "10px", alignItems: "center" }} ><div className='flashing-dot'></div><button title='Unlive' onClick={() => handleRevokeLive(data._id)} className='actn-btn' ><PiProhibitFill /></button></div> : <button onClick={()=>{handleMakeGameLive(data._id)}} className='actn-btn'>Make Live</button>}</td>
                                                             <td><Link className='actn-btn' to={`/admin/dashboard/jodi/${data.jodi_id}`}>Jodi</Link></td>
                                                             <td><Link className='actn-btn' to={`/admin/dashboard/panel/${data.panel_id}`}>Panel</Link></td>
                                                             <td><div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>{editingId === data._id ? <button className='actn-btn' onClick={() => handleUpdateGame(data._id)}><FaSave /></button> : <button className='actn-btn' onClick={() => { setGameUpdateData({ gamename: data.gamename, gametype: data.gametype, result: data.result, time: data.time, hilite: data.hilite,live_start_time:data.live_start_time,live_end_time:data.live_end_time }); setEditingId(data._id) }}><FaEdit /></button>} {userInfo.user.role === "BENJO" && <button onClick={() => handleDeleteGame(data)} className='actn-btn'><FaTrash /></button>} </div></td>
